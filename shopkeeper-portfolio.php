@@ -61,7 +61,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			$this->gbt_enqueue_admin_scripts();
 			$this->gbt_enqueue_styles();
 
-			add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99);
+			add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99 );
+			add_filter( 'taxonomy_template', array( $this, 'gbt_portfolio_taxonomy_template' ), 99 );
 
 			if ( defined(  'WPB_VC_VERSION' ) ) {
 				add_action( 'init', function() {
@@ -229,15 +230,33 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		public static function gbt_portfolio_template() {
 			global $post;
 
+			$template = '';
+			
 			if ( $post->post_type == 'portfolio' ) {
 				$page_portfolio_layout = get_post_meta( get_the_ID(), 'portfolio_layout', true );
 
 		        if( $page_portfolio_layout == 'boxed' ) {
-		        	include_once( 'includes/templates/single-portfolio-boxed.php' );
+		        	$template = plugin_dir_path(__FILE__) . 'includes/templates/single-portfolio-boxed.php';
 		        } else {
-		        	include_once( 'includes/templates/single-portfolio-full.php' );
+		        	$template = plugin_dir_path(__FILE__) . 'includes/templates/single-portfolio-full.php';
 		        }
 		    }
+
+		    return $template;
+		}
+
+		/**
+		 * Loads portfolio taxonomy template
+		 *
+		 * @return void
+		*/
+		public static function gbt_portfolio_taxonomy_template() {
+			$template = plugin_dir_path(__FILE__) . 'includes/templates/taxonomy-portfolio_categories.php';
+			if ( file_exists( $template ) ) {
+				return $template;
+			}
+
+			return '';
 		}
 	}
 
