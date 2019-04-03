@@ -1,7 +1,5 @@
 <?php 
-	
-	global $shopkeeper_theme_options;
-	
+		
 	if (get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true )) {
 		$portfolio_title_option = get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true );
 	} else {

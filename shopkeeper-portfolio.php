@@ -57,9 +57,9 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			$this->gbt_register_post_type();
 			$this->gbt_add_metabox();
 			$this->gbt_register_shortcode();
-			$this->gbt_enqueue_scripts();
-			$this->gbt_enqueue_admin_scripts();
-			$this->gbt_enqueue_styles();
+			$this->gbt_register_scripts();
+			$this->gbt_register_admin_scripts();
+			$this->gbt_register_styles();
 
 			add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99 );
 			add_filter( 'taxonomy_template', array( $this, 'gbt_portfolio_taxonomy_template' ), 99 );
@@ -117,7 +117,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 			// Section
 			$wp_customize->add_section( 'portfolio', array(
-		 		'title'       => esc_attr__( 'Portfolio', 'shopkeeper-extender' ),
+		 		'title'       => esc_attr__( 'Portfolio', 'shopkeeper-portfolio' ),
 		 		'priority'    => 20,
 		 	) );
 
@@ -134,8 +134,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 					'gbt_portfolio_slug',
 					array( 
 						'type'			=> 'text',
-						'label'       	=> esc_attr__( 'Portfolio Item Slug', 'shopkeeper-extender' ),
-						'description' 	=> __('<span class="dashicons dashicons-editor-help"></span>Default slug is "portfolio-item". Enter a custom one to overwrite it. <br/><b>You need to regenerate your permalinks if you modify this!</b>', 'shopkeeper'),
+						'label'       	=> esc_attr__( 'Portfolio Item Slug', 'shopkeeper-portfolio' ),
+						'description' 	=> __('<span class="dashicons dashicons-editor-help"></span>Default slug is "portfolio-item". Enter a custom one to overwrite it. <br/><b>You need to regenerate your permalinks if you modify this!</b>', 'shopkeeper-portfolio'),
 						'section'     	=> 'portfolio',
 						'priority'    	=> 20,
 					)
@@ -178,7 +178,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 *
 		 * @return void
 		*/
-		public static function gbt_enqueue_styles() {
+		public static function gbt_register_styles() {
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_style(
 					'gbt-portfolio-styles', 
@@ -193,7 +193,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 *
 		 * @return void
 		*/
-		public static function gbt_enqueue_scripts() {
+		public static function gbt_register_scripts() {
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_script(
 					'gbt-portfolio-scripts',
@@ -208,7 +208,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 *
 		 * @return void
 		*/
-		public static function gbt_enqueue_admin_scripts() {
+		public static function gbt_register_admin_scripts() {
 			if ( is_admin() ) {
 				add_action( 'admin_enqueue_scripts', function() {
 					global $post_type;
@@ -251,9 +251,12 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 * @return void
 		*/
 		public static function gbt_portfolio_taxonomy_template() {
-			$template = plugin_dir_path(__FILE__) . 'includes/templates/taxonomy-portfolio_categories.php';
-			if ( file_exists( $template ) ) {
-				return $template;
+
+			if( is_tax( 'portfolio_categories' ) ) {
+				$template = plugin_dir_path(__FILE__) . 'includes/templates/taxonomy-portfolio_categories.php';
+				if ( file_exists( $template ) ) {
+					return $template;
+				}
 			}
 
 			return '';
