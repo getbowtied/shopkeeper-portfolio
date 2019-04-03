@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       		Shopkeeper Portfolio
+ * Plugin Name:       		Shopkeeper Portfolio Addon
  * Plugin URI:        		https://shopkeeper.wp-theme.design/
  * Description:       		Portfolio custom post type for Shopkeeper
  * Version:           		1.0
@@ -10,7 +10,7 @@
  * Text Domain:				shopkeeper-portfolio
  * Domain Path:				/languages/
  * Requires at least: 		5.0
- * Tested up to: 			5.1
+ * Tested up to: 			5.1.1
  *
  * @package  Shopkeeper Portfolio
  * @author   GetBowtied
@@ -25,12 +25,12 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
 }
 
 // Plugin Updater
-// require 'core/updater/plugin-update-checker.php';
-// $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-// 	'https://raw.githubusercontent.com/getbowtied/shopkeeper-portfolio/master/core/updater/assets/plugin.json',
-// 	__FILE__,
-// 	'shopkeeper-portfolio'
-// );
+require 'core/updater/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://raw.githubusercontent.com/getbowtied/shopkeeper-portfolio/master/core/updater/assets/plugin.json',
+	__FILE__,
+	'shopkeeper-portfolio'
+);
 
 if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
