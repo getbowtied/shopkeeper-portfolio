@@ -35,6 +35,7 @@ function create_portfolio_item() {
 		'show_in_rest'			=> true,
 		'capability_type' 		=> 'post',
 		'rest_base'				=> 'portfolio-item',
+		'menu_icon'   			=> 'dashicons-portfolio',
 		'has_archive' 			=> true, 
 		'hierarchical' 			=> true,
 		'menu_position' 		=> 4,
