@@ -12,7 +12,7 @@
 	"author_homepage": "https://getbowtied.com/",
 
 	"sections": {
-		"description": "<p>Portfolio custom post type for Shopkeeper</p>",
+		"description": "<p>Extends the functionality of your WordPress site by adding a 'Portfolio' custom post type allowing you to organize and showcase you your work or products. Companion plugin for the Shopkeeper theme.</p>",
 		"changelog": "<h4>1.0</h4><ul><li>Initial Version</li></ul>"
 	},
 	
