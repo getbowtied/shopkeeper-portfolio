@@ -60,6 +60,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			$this->gbt_register_scripts();
 			$this->gbt_register_admin_scripts();
 			$this->gbt_register_styles();
+			$this->gbt_add_block();
 
 			add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99 );
 			add_filter( 'taxonomy_template', array( $this, 'gbt_portfolio_taxonomy_template' ), 99 );
@@ -171,6 +172,15 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		*/
 		public static function gbt_register_shortcode() {
 			include_once( 'includes/shortcodes/wp/portfolio.php' );
+		}
+
+		/**
+		 * Loads Gutenberg blocks
+		 *
+		 * @return void
+		*/
+		public static function gbt_add_block() {
+			include_once( 'includes/blocks/index.php' );
 		}
 
 		/**

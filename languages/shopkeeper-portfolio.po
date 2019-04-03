@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Shopkeeper Portfolio\n"
-"POT-Creation-Date: 2019-04-03 12:33+0300\n"
+"POT-Creation-Date: 2019-04-03 14:14+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -21,9 +21,74 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: core\n"
 
-#: includes/portfolio/post-type.php:10 includes/portfolio/post-type.php:22
-#: shopkeeper-portfolio.php:120
+#: includes/blocks/portfolio/block.js:22 includes/portfolio/post-type.php:10
+#: includes/portfolio/post-type.php:22 shopkeeper-portfolio.php:121
 msgid "Portfolio"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:32
+msgid "Equal Boxes"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:33
+msgid "Masonry Style V1"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:34
+msgid "Masonry Style V2"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:35
+msgid "Masonry Style V3"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:211
+msgid "Update"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:213
+msgid "Updating"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:430
+msgid "Categories:"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:445
+msgid "Alphabetical Ascending"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:446
+msgid "Alphabetical Descending"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:447
+msgid "Date Ascending"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:448
+msgid "Date Descending"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:450
+msgid "Order By"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:469
+msgid "Number of Portfolio Items"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:495
+msgid "Show Filters?"
+msgstr ""
+
+#: includes/blocks/portfolio/block.js:511
+msgid "Columns"
+msgstr ""
+
+#: includes/blocks/portfolio/block.php:111
+#: includes/shortcodes/wp/portfolio.php:71
+msgid "Show all"
 msgstr ""
 
 #: includes/portfolio/post-type.php:11
@@ -118,15 +183,11 @@ msgstr ""
 msgid "No Portfolio Category found."
 msgstr ""
 
-#: includes/shortcodes/wp/portfolio.php:71
-msgid "Show all"
-msgstr ""
-
-#: shopkeeper-portfolio.php:137
+#: shopkeeper-portfolio.php:138
 msgid "Portfolio Item Slug"
 msgstr ""
 
-#: shopkeeper-portfolio.php:138
+#: shopkeeper-portfolio.php:139
 msgid ""
 "<span class=\"dashicons dashicons-editor-help\"></span>Default slug is "
 "\"portfolio-item\". Enter a custom one to overwrite it. <br/><b>You need to "
