@@ -7,7 +7,7 @@ Requires PHP: 5.5.0
 License: GNU General Public License v3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Portfolio custom post type for Shopkeeper
+Extends the functionality of your WordPress site by adding a 'Portfolio' custom posty type allowing you to organize and showcase you your work or products. Companion plugin for the Shopkeeper theme.
 
 == Changelog ==
 
