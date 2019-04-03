@@ -56,7 +56,6 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			$this->gbt_customizer_options();
 			$this->gbt_register_post_type();
 			$this->gbt_add_metabox();
-			$this->gbt_get_item_layout();
 			$this->gbt_register_shortcode();
 			$this->gbt_enqueue_scripts();
 			$this->gbt_enqueue_admin_scripts();
@@ -64,8 +63,9 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 			add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99);
 
-			if ( class_exists('WPBakeryVisualComposerAbstract') ) {
+			if ( defined(  'WPB_VC_VERSION' ) ) {
 				add_action( 'init', function() {
+					include_once( 'includes/shortcodes/wb/portfolio.php' );
 					if(function_exists('vc_set_default_editor_post_types')) {
 						vc_set_default_editor_post_types( array('post','page','product','portfolio') );
 					}
@@ -92,10 +92,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 */
 		private function gbt_import_options() {
 			if( !get_option( 'gbt_portfolio_options_import', false ) ) {
-
 				$portfolio_option = get_theme_mod( 'portfolio_item_slug', 'portfolio-item' );
 				update_option( 'gbt_portfolio_item_slug', $portfolio_option );
-
 				update_option( 'gbt_portfolio_options_import', true );
 			}
 		}
@@ -166,30 +164,12 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		}
 
 		/**
-		 * Get portfolio item layout
-		 *
-		 * @return void
-		*/
-		public static function gbt_get_item_layout() {
-			include_once( 'includes/layouts/layout.php' );
-		}
-
-		/**
 		 * Registers portfolio shortcode
 		 *
 		 * @return void
 		*/
 		public static function gbt_register_shortcode() {
-
 			include_once( 'includes/shortcodes/wp/portfolio.php' );
-
-			// Add Shortcodes to WP Bakery
-			if ( defined(  'WPB_VC_VERSION' ) ) {
-				add_action( 'init', 'getbowtied_wb_shortcodes' );
-				function getbowtied_wb_shortcodes() {
-					include_once( 'includes/shortcodes/wb/portfolio.php' );
-				}
-			}
 		}
 
 		/**
@@ -228,7 +208,6 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 * @return void
 		*/
 		public static function gbt_enqueue_admin_scripts() {
-
 			if ( is_admin() ) {
 				add_action( 'admin_enqueue_scripts', function() {
 					global $post_type;
@@ -250,17 +229,16 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		public static function gbt_portfolio_template() {
 			global $post;
 
-			if ( $post->post_type == 'portfolio' ){
-		        if( getbowtied_portfolio_layout(get_the_ID()) == 'boxed' ) {
-		        	include_once( 'single-portfolio-boxed.php' );
+			if ( $post->post_type == 'portfolio' ) {
+				$page_portfolio_layout = get_post_meta( get_the_ID(), 'portfolio_layout', true );
+
+		        if( $page_portfolio_layout == 'boxed' ) {
+		        	include_once( 'includes/templates/single-portfolio-boxed.php' );
 		        } else {
-		        	include_once( 'single-portfolio-full.php' );
+		        	include_once( 'includes/templates/single-portfolio-full.php' );
 		        }
 		    }
-
-		    return;
 		}
-
 	}
 
 endif;

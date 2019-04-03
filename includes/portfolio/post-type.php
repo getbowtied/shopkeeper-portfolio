@@ -4,8 +4,7 @@ add_action( 'init', 'create_portfolio_item' );
 
 function create_portfolio_item() {
 	
-	$the_slug = get_theme_mod('portfolio_item_slug', 'portfolio-item');
-
+	$the_slug = get_option( 'gbt_portfolio_item_slug', 'portfolio-item' );
 
 	$labels = array(
 		'name' 					=> __('Portfolio', 'shopkeeper'),
