@@ -123,7 +123,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 	) );
 
 		 	// Fields
-			$wp_customize->add_setting( 'gbt_portfolio_slug', array(
+			$wp_customize->add_setting( 'gbt_portfolio_item_slug', array(
 				'type'		 			=> 'option',
 				'capability' 			=> 'manage_options',
 				'default'     			=> 'portfolio-item',
@@ -132,7 +132,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			$wp_customize->add_control( 
 				new WP_Customize_Control(
 					$wp_customize,
-					'gbt_portfolio_slug',
+					'gbt_portfolio_item_slug',
 					array( 
 						'type'			=> 'text',
 						'label'       	=> esc_attr__( 'Portfolio Item Slug', 'shopkeeper-portfolio' ),
