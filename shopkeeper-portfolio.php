@@ -211,9 +211,11 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 				wp_enqueue_script(
 					'gbt-portfolio-scripts',
 					plugins_url( 'includes/assets/js/portfolio.js', __FILE__ ), 
-					array('jquery')
+					array('jquery'),
+					false,
+					true
 				);
-			}, 99 );
+			}, 300 );
 		}
 
 		/**
