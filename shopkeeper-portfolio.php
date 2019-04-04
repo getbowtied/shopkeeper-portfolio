@@ -278,4 +278,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 endif;
 
-$shopkeeper_portfolio = new ShopkeeperPortfolio;
+$theme = wp_get_theme();
+$parent_theme = $theme->parent();
+if( $theme->template == 'shopkeeper' && ( $theme->version >= '2.8.2' || ( !empty($parent_theme) && $parent_theme->version >= '2.8.2' ) ) ) {
+	$shopkeeper_portfolio = new ShopkeeperPortfolio;
+}
