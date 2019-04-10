@@ -244,10 +244,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 *
 		 * @return void
 		*/
-		public static function gbt_portfolio_template() {
+		public static function gbt_portfolio_template( $template ) {
 			global $post;
-
-			$template = '';
 			
 			if ( $post->post_type == 'portfolio' ) {
 				$page_portfolio_layout = get_post_meta( get_the_ID(), 'portfolio_layout', true );
@@ -267,16 +265,13 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 *
 		 * @return void
 		*/
-		public static function gbt_portfolio_taxonomy_template() {
+		public static function gbt_portfolio_taxonomy_template( $template ) {
 
 			if( is_tax( 'portfolio_categories' ) ) {
 				$template = plugin_dir_path(__FILE__) . 'includes/templates/taxonomy-portfolio_categories.php';
-				if ( file_exists( $template ) ) {
-					return $template;
-				}
 			}
 
-			return '';
+			return $template;
 		}
 	}
 
