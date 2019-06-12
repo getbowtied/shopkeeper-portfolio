@@ -26,4 +26,4 @@ add_action( 'enqueue_block_editor_assets', function() {
 //	Blocks
 //==============================================================================
 
-include_once 'portfolio/block.php';
+include_once( dirname(__FILE__) . '/portfolio/block.php' );

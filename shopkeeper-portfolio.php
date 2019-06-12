@@ -67,7 +67,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 			add_action( 'plugins_loaded', function() {
 				if ( defined(  'WPB_VC_VERSION' ) ) {
-					include_once( 'includes/shortcodes/wb/portfolio.php' );
+					include_once( dirname(__FILE__) . '/includes/shortcodes/wb/portfolio.php' );
 					if( function_exists('vc_set_default_editor_post_types') ) {
 						vc_set_default_editor_post_types( array('post','page','product','portfolio') );
 					}
@@ -151,8 +151,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		*/
 		public static function gbt_register_post_type() {
 
-			include_once( 'includes/portfolio/post-type.php' );
-			include_once( 'includes/portfolio/taxonomy.php' );
+			include_once( dirname(__FILE__) . '/includes/portfolio/post-type.php' );
+			include_once( dirname(__FILE__) . '/includes/portfolio/taxonomy.php' );
 		}
 
 		/**
@@ -162,7 +162,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		*/
 		public static function gbt_add_metabox() {
 			
-			include_once( 'includes/portfolio/metabox.php' );
+			include_once( dirname(__FILE__) . '/includes/portfolio/metabox.php' );
 		}
 
 		/**
@@ -171,7 +171,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 * @return void
 		*/
 		public static function gbt_register_shortcode() {
-			include_once( 'includes/shortcodes/wp/portfolio.php' );
+			include_once( dirname(__FILE__) . '/includes/shortcodes/wp/portfolio.php' );
 		}
 
 		/**
@@ -184,7 +184,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 				if( class_exists('WP_Block_Type_Registry') ) {
 					$registry = new WP_Block_Type_Registry;
 					if( !$registry->is_registered( 'getbowtied/sk-portfolio' ) ) {
-						include_once( 'includes/blocks/index.php' );
+						include_once( dirname(__FILE__) . '/includes/blocks/index.php' );
 					}
 				}
 			});
