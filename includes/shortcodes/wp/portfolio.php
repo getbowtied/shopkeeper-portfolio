@@ -68,7 +68,7 @@ function shortcode_portfolio($atts, $content = null) {
 				
 				if ( !empty( $portfolio_categories_queried ) && !is_wp_error( $portfolio_categories_queried ) ){
 	                echo '<ul class="filters-group list-centered">';
-	                    echo '<li class="filter-item is-checked" data-filter="*">' . __("Show all", "shopkeeper-portfolio") . '</li>';
+	                    echo '<li class="filter-item is-checked" data-filter="*">' . esc_html__("Show all", "shopkeeper-portfolio") . '</li>';
 	                foreach ( $portfolio_categories_queried as $key => $value ) {
 	                    echo '<li class="filter-item" data-filter=".' . $key . '">' . $value . '</li>';
 	                }
