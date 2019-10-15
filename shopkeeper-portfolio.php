@@ -4,13 +4,13 @@
  * Plugin Name:       		Shopkeeper Portfolio Addon
  * Plugin URI:        		https://shopkeeper.wp-theme.design/
  * Description:       		Extends the functionality of your WordPress site by adding a 'Portfolio' custom post type allowing you to organize and showcase you your work or products.
- * Version:           		1.2.3
+ * Version:           		1.2.4
  * Author:            		GetBowtied
  * Author URI:				https://getbowtied.com
  * Text Domain:				shopkeeper-portfolio
  * Domain Path:				/languages/
  * Requires at least: 		5.0
- * Tested up to: 			5.2.2
+ * Tested up to: 			5.2.4
  *
  * @package  Shopkeeper Portfolio
  * @author   GetBowtied
@@ -129,11 +129,11 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 				'default'     			=> 'portfolio-item',
 			) );
 
-			$wp_customize->add_control( 
+			$wp_customize->add_control(
 				new WP_Customize_Control(
 					$wp_customize,
 					'gbt_portfolio_item_slug',
-					array( 
+					array(
 						'type'			=> 'text',
 						'label'       	=> esc_attr__( 'Portfolio Item Slug', 'shopkeeper-portfolio' ),
 						'description' 	=> __('<span class="dashicons dashicons-editor-help"></span>Default slug is "portfolio-item". Enter a custom one to overwrite it. <br/><b>You need to regenerate your permalinks if you modify this!</b>', 'shopkeeper-portfolio'),
@@ -161,7 +161,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 * @return void
 		*/
 		public static function gbt_add_metabox() {
-			
+
 			include_once( dirname(__FILE__) . '/includes/portfolio/metabox.php' );
 		}
 
@@ -198,8 +198,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		public static function gbt_register_styles() {
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_style(
-					'gbt-portfolio-styles', 
-					plugins_url( 'includes/assets/css/portfolio.css', __FILE__ ), 
+					'gbt-portfolio-styles',
+					plugins_url( 'includes/assets/css/portfolio.css', __FILE__ ),
 					NULL
 				);
 			} );
@@ -214,7 +214,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_script(
 					'gbt-portfolio-scripts',
-					plugins_url( 'includes/assets/js/portfolio.js', __FILE__ ), 
+					plugins_url( 'includes/assets/js/portfolio.js', __FILE__ ),
 					array('jquery'),
 					false,
 					true
@@ -233,12 +233,12 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 					global $post_type;
 					wp_enqueue_script(
 						'gbt-portfolio-admin-scripts',
-						plugins_url( 'includes/assets/js/wp-admin-portfolio.js', __FILE__ ), 
-						array('wp-color-picker'), 
+						plugins_url( 'includes/assets/js/wp-admin-portfolio.js', __FILE__ ),
+						array('wp-color-picker'),
 						false
 					);
 				} );
-			}			
+			}
 		}
 
 		/**
@@ -248,7 +248,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		*/
 		public static function gbt_portfolio_template( $template ) {
 			global $post;
-			
+
 			if ( $post->post_type == 'portfolio' ) {
 				$page_portfolio_layout = get_post_meta( get_the_ID(), 'portfolio_layout', true );
 
