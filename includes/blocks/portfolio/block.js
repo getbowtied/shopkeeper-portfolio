@@ -3,19 +3,23 @@
 	const el = element.createElement;
 
 	/* Blocks */
-	const registerBlockType   	= wp.blocks.registerBlockType;
+	const registerBlockType = wp.blocks.registerBlockType;
 
-	const InspectorControls 	= wp.editor.InspectorControls;
+	const {
+		TextControl,
+		SelectControl,
+		ToggleControl,
+		RadioControl,
+		RangeControl,
+		SVG,
+		Path,
+	} = wp.components;
 
-	const TextControl 			= wp.components.TextControl;
-	const RadioControl       	= wp.components.RadioControl;
-	const SelectControl			= wp.components.SelectControl;
-	const ToggleControl			= wp.components.ToggleControl;
-	const RangeControl			= wp.components.RangeControl;
-	const SVG 					= wp.components.SVG;
-	const Path 					= wp.components.Path;
+	const {
+		InspectorControls,
+	} = wp.blockEditor;
 
-	const apiFetch 				= wp.apiFetch;
+	const apiFetch = wp.apiFetch;
 
 	/* Register Block */
 	registerBlockType( 'getbowtied/sk-portfolio', {
@@ -132,9 +136,9 @@
 					case 'title_desc':
 						query += '&orderby=title&order=desc';
 						break;
-					default: 
+					default:
 						break;
-				}	
+				}
 
 				return query;
 			}
@@ -263,7 +267,7 @@
 					for ( let i = 0; i < portfolio_items.length; i++ ) {
 
 						let portfolio_image = [];
-						if ( portfolio_items[i]['fimg_url'] ) { 
+						if ( portfolio_items[i]['fimg_url'] ) {
 							portfolio_image.push(
 								el( 'span',
 									{
@@ -277,31 +281,31 @@
 								)
 							);
 						};
- 
+
 						postElements.push(
-							el( "div", 
+							el( "div",
 								{
-									key: 		'gbt_18_sk_editor_portfolio_item_box_' + portfolio_items[i].id, 
+									key: 		'gbt_18_sk_editor_portfolio_item_box_' + portfolio_items[i].id,
 									className: 	'gbt_18_sk_editor_portfolio_item_box'
 								},
 								el( 'a',
 									{
-										key: 		'gbt_18_sk_editor_portfolio_item_link',
+										key: 		'gbt_18_sk_editor_portfolio_item_link_' + i,
 										className: 	'gbt_18_sk_editor_portfolio_item_link',
 										style:
 										{
 											backgroundColor: portfolio_items[i]['color_meta_box']
 										}
 									},
-									el( "div", 
+									el( "div",
 										{
-											key: 		'gbt_18_sk_editor_portfolio_item_content', 
+											key: 		'gbt_18_sk_editor_portfolio_item_content_' + i,
 											className: 	'gbt_18_sk_editor_portfolio_item_content'
 										},
 										portfolio_image,
 										el( 'h2',
 											{
-												key: 'gbt_18_sk_editor_portfolio_item_title',
+												key: 'gbt_18_sk_editor_portfolio_item_title_' + i,
 												className: 'gbt_18_sk_editor_portfolio_item_title',
 												dangerouslySetInnerHTML: { __html: portfolio_items[i]['title']['rendered'] }
 											}
@@ -311,7 +315,7 @@
 							)
 						);
 					}
-				} 
+				}
 
 				wrapper.push(
 					el( 'div',
@@ -336,7 +340,7 @@
 				let options = [];
 				let optionsIDs = [];
 				let sorted = [];
-			
+
 				apiFetch({ path: '/wp/v2/portfolio-category?per_page=-1' }).then(function (categories) {
 
 				 	for( let i = 0; i < categories.length; i++) {
@@ -363,15 +367,17 @@
 							el(
 								'li',
 								{
+									key: 'portfolio_category_' + i,
 									className: 'level-' + catArr[i].level,
 								},
 								el(
 								'label',
 									{
+										key: 'portfolio_cat_label_' + i,
 										className: _categoryClassName( catArr[i].parent, catArr[i].value ) + ' ' + catArr[i].level,
 									},
 									el(
-									'input', 
+									'input',
 										{
 											type:  'checkbox',
 											key:   'category-checkbox-' + catArr[i].value,
@@ -394,7 +400,7 @@
 												props.setAttributes({ categoriesIDs: newCategoriesSelected });
 												props.setAttributes({ queryItems: _buildQuery(newCategoriesSelected, attributes.number, attributes.orderby) });
 											},
-										}, 
+										},
 									),
 									catArr[i].label,
 									el(
@@ -406,11 +412,11 @@
 								renderCategories( catArr[i].value, level+1)
 							),
 						);
-					} 
-				}	
+					}
+				}
 				if (categoryElements.length > 0 ) {
 					let wrapper = el('ul', {className: 'level-' + level}, categoryElements);
-					return wrapper;		
+					return wrapper;
 				} else {
 					return;
 				}
