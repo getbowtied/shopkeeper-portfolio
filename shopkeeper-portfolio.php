@@ -32,6 +32,8 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
 	'shopkeeper-portfolio'
 );
 
+define( 'SK_PORTFOLIO_ENQUEUE_SUFFIX', SCRIPT_DEBUG ? '' : '.min' );
+
 if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 	/**
@@ -199,7 +201,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_style(
 					'gbt-portfolio-styles',
-					plugins_url( 'includes/assets/css/portfolio.css', __FILE__ ),
+					plugins_url( 'includes/assets/css/portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.css', __FILE__ ),
 					NULL
 				);
 			} );
@@ -214,7 +216,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 			add_action( 'wp_enqueue_scripts', function() {
 				wp_enqueue_script(
 					'gbt-portfolio-scripts',
-					plugins_url( 'includes/assets/js/portfolio.js', __FILE__ ),
+					plugins_url( 'includes/assets/js/portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.js', __FILE__ ),
 					array('jquery'),
 					false,
 					true
@@ -233,7 +235,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 					global $post_type;
 					wp_enqueue_script(
 						'gbt-portfolio-admin-scripts',
-						plugins_url( 'includes/assets/js/wp-admin-portfolio.js', __FILE__ ),
+						plugins_url( 'includes/assets/js/wp-admin-portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.js', __FILE__ ),
 						array('wp-color-picker'),
 						false
 					);
