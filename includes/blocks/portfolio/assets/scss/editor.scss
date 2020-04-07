@@ -17,7 +17,7 @@
 				display: block;
 				overflow: hidden;
 				margin: 0;
-				background: #000;
+				background: #fff;
 				text-align: center;
 				cursor: pointer;
 				width: 100%;
@@ -43,11 +43,13 @@
 					}
 
 					.gbt_18_sk_editor_portfolio_item_title {
+						bottom: 20px;
     					padding: 10px 20px 10px;
     					margin: 0;
     					color: #fff;
 						line-height: 1.2em;
 						font-weight: 900;
+						font-size: 1.325rem !important;
 						position: absolute;
 						transform :none;
 						text-align: left;
@@ -56,7 +58,7 @@
 
 					&:hover {
 						.gbt_18_sk_editor_portfolio_item_thumbnail {
-							opacity: 0.15;
+							opacity: 0.45;
 							transform: translate3d(0,0,0);
 						}
 					}
@@ -165,7 +167,7 @@
 		    margin-top: -20%;
 		    margin-left: 80%;
 		}
-	}	
+	}
 }
 
 // Masonry 3
@@ -201,7 +203,7 @@
 }
 
 .editor-block-list__block[data-type="getbowtied/sk-portfolio"][data-align="full"] {
-	
+
 	.gbt_18_sk_editor_portfolio_item_title {
 		font-size: 22px;
 	    bottom: 23px;
