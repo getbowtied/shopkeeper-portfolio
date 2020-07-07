@@ -281,8 +281,9 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
 endif;
 
-$theme = wp_get_theme();
-$parent_theme = $theme->parent();
-if( $theme->template == 'shopkeeper' && ( $theme->version >= '2.8.2' || ( !empty($parent_theme) && $parent_theme->version >= '2.8.2' ) ) ) {
-	$shopkeeper_portfolio = new ShopkeeperPortfolio;
-}
+add_action( 'after_setup_theme', function() {
+    // Shopkeeper Dependent Components
+    if( function_exists('shopkeeper_theme_slug') ) {
+        $shopkeeper_portfolio = new ShopkeeperPortfolio;
+    }
+} );
