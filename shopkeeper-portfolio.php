@@ -182,14 +182,12 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 		 * @return void
 		*/
 		public static function gbt_add_block() {
-			add_action( 'plugins_loaded', function() {
-				if( class_exists('WP_Block_Type_Registry') ) {
-					$registry = new WP_Block_Type_Registry;
-					if( !$registry->is_registered( 'getbowtied/sk-portfolio' ) ) {
-						include_once( dirname(__FILE__) . '/includes/blocks/index.php' );
-					}
+			if( class_exists('WP_Block_Type_Registry') ) {
+				$registry = new WP_Block_Type_Registry;
+				if( !$registry->is_registered( 'getbowtied/sk-portfolio' ) ) {
+					include_once( dirname(__FILE__) . '/includes/blocks/index.php' );
 				}
-			});
+			}
 		}
 
 		/**
