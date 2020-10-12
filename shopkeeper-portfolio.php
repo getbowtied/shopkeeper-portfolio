@@ -266,7 +266,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
                 // Set default plugin templates path.
                 if ( ! $default_path ) :
-                    $default_path = plugin_dir_path( __FILE__ ) . '/includes/templates/'; // Path to the template folder
+                    $default_path = plugin_dir_path( __FILE__ ) . 'includes/templates/'; // Path to the template folder
                 endif;
 
                 // Search template file in theme folder.
@@ -310,8 +310,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                     return;
                 endif;
 
-                include $template_file;
-
+                return $template_file;
             }
 
             /**
