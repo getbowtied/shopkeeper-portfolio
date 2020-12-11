@@ -7,6 +7,7 @@ function shortcode_portfolio($atts, $content = null) {
 	global $post;
 
 	$sliderrandomid = rand();
+	$portfolio_categories_queried = array();
 
 	extract(shortcode_atts(array(
 		"items" 					=> '9999',
