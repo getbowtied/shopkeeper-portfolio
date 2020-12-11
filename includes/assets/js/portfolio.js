@@ -1,4 +1,6 @@
-jQuery(document).ready(function ($) {
+jQuery( function ($) {
+
+	"use strict";
 
 	//portfolio isotope - hover effect
 	$('.hover-effect-text').each(function(){
@@ -160,5 +162,4 @@ jQuery(document).ready(function ($) {
 
         }
     });
-
 });
