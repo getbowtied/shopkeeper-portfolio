@@ -197,7 +197,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                 add_action( 'wp_enqueue_scripts', function() {
                     wp_enqueue_style(
                         'gbt-portfolio-styles',
-                        plugins_url( 'includes/assets/css/portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.css', __FILE__ ),
+                        plugins_url( 'includes/assets/css/portfolio.css', __FILE__ ),
                         NULL
                     );
                 } );

@@ -136,7 +136,7 @@ jQuery( function ($) {
 		});
     }//endif portfolio isotope
 
-    $(window).resize(function(){
+    $(window).on( 'resize', function(){
 
     	//portfolio isotope
         if ( $('.portfolio-isotope-container').length ) {

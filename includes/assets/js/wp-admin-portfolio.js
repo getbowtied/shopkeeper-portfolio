@@ -1,7 +1,7 @@
-jQuery(document).ready(function($) {
+jQuery( function($) {
 
     "use strict";
 
 	$('#portfolio_color_meta_box').wpColorPicker();
-	 
+
 });
