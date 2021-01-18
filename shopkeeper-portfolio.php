@@ -351,7 +351,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
     add_action( 'after_setup_theme', function() {
         // Shopkeeper Dependent Components
-        if( function_exists('shopkeeper_theme_slug') ) {
+        if( class_exists('Shopkeeper') ) {
             $shopkeeper_portfolio = new ShopkeeperPortfolio;
         }
     } );
