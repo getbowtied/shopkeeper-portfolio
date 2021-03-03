@@ -217,6 +217,22 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                         false,
                         true
                     );
+
+                    wp_enqueue_script(
+                        'isotope-js',
+                        plugins_url( 'includes/assets/js/vendor/isotope.pkgd.min.js', __FILE__ ),
+                        array('jquery'),
+                        'v3.0.6',
+                        true
+                    );
+
+                    wp_enqueue_script(
+                        'imagesloaded',
+                        plugins_url( 'includes/assets/js/vendor/imagesloaded.min.js', __FILE__ ),
+                        array('jquery'),
+                        '3.1.4',
+                        true
+                    );
                 }, 300 );
             }
 
