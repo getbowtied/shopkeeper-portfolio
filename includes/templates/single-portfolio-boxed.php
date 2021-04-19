@@ -4,6 +4,7 @@ global $post;
 
 $portfolio_title_option = get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) ? get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) : 'on';
 $portfolio_class = ( 'on' === $portfolio_title_option ) ? 'page-title-shown' : 'page-title-hidden';
+$single_post_header_thumb_class = has_post_thumbnail() ? 'with-thumb': '';
 
 get_header();
 
@@ -14,18 +15,28 @@ get_header();
 
 		<div id="content" class="site-content" role="main">
 
-			<header class="entry-header entry-header-portfolio-single">
-				<div class="row">
-					<div class="large-10 large-centered columns">
-						<?php if( 'on' === $portfolio_title_option ) { ?>
-							<h1 class="page-title portfolio_item_title"><?php the_title(); ?></h1>
-							<div class="portfolio_single_list_cat">
-								<?php echo get_the_term_list( get_the_ID(), 'portfolio_categories', "",", " ); ?>
-							</div>
-						<?php } ?>
-					</div>
-				</div>
-			</header>
+            <?php if( 'on' === $portfolio_title_option ) { ?>
+                <header class="single-post-header entry-header-portfolio-single entry-header <?php echo esc_attr( $single_post_header_thumb_class ); ?>">
+                    <?php if(has_post_thumbnail()) { ?>
+                		<div class="single-post-header-overlay"></div>
+                		<?php the_post_thumbnail('full'); ?>
+                    <?php } ?>
+
+                	<div class="row">
+                		<div class="single-post-title-wrapper">
+                	        <div class="small-12 large-6 small-centered single-post-title-wrap">
+                                <?php $categories = get_the_term_list( get_the_ID(), 'portfolio_categories', '', ', ', '' ); ?>
+                                <?php if( !empty($categories) ) { ?>
+                                    <div class="post_meta entry-meta">
+        								<?php echo wp_kses_post( $categories ); ?>
+        							</div>
+                                <?php } ?>
+                	            <h1 class="entry-title portfolio_item_title"><?php the_title(); ?></h1>
+                			</div>
+                        </div>
+                    </div>
+                </header>
+            <?php } ?>
 
 			<div class="row">
 				<div class="columns large-centered large-6">

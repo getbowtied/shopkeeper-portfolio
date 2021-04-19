@@ -14,18 +14,21 @@ get_header();
 
 		<div id="content" class="site-content" role="main">
 
-			<header class="entry-header entry-header-portfolio-single">
-				<div class="row">
-					<div class="large-10 large-centered columns">
-                        <?php if( 'on' === $portfolio_title_option ) { ?>
+            <?php if( 'on' === $portfolio_title_option ) { ?>
+			    <header class="entry-header entry-header-portfolio-single">
+    				<div class="row">
+    					<div class="large-10 large-centered columns">
+                            <?php $categories = get_the_term_list( get_the_ID(), 'portfolio_categories', '', ', ', '' ); ?>
+                            <?php if( !empty($categories) ) { ?>
+                                <div class="post_meta entry-meta">
+                                    <?php echo wp_kses_post( $categories ); ?>
+                                </div>
+                            <?php } ?>
                         	<h1 class="page-title portfolio_item_title"><?php the_title(); ?></h1>
-                            <div class="portfolio_single_list_cat">
-                                <?php echo get_the_term_list( get_the_ID(), 'portfolio_categories', "",", " ); ?>
-                            </div>
-                        <?php } ?>
-					</div>
-				</div>
-			</header>
+    					</div>
+    				</div>
+			    </header>
+            <?php } ?>
 
 			<div class="entry-content entry-content-portfolio">
 				<?php the_content(); ?>

@@ -265,7 +265,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                     global $post_type;
                     wp_enqueue_script(
                         'gbt-portfolio-admin-scripts',
-                        plugins_url( 'includes/assets/js/wp-admin-portfolio.min.js', __FILE__ ),
+                        plugins_url( 'includes/assets/js/wp-admin-portfolio.js', __FILE__ ),
                         array('wp-color-picker'),
                         false
                     );
