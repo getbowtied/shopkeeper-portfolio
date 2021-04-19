@@ -3,7 +3,9 @@
 add_action( 'init', 'create_portfolio_categories' );
 
 function create_portfolio_categories() {
-	
+
+	$the_slug = get_option( 'gbt_portfolio_category_slug', 'portfolio-category' );
+
 	$labels = array(
 		'name'                       => __('Portfolio Categories', 'shopkeeper-portfolio'),
 		'singular_name'              => __('Portfolio Category', 'shopkeeper-portfolio'),
@@ -30,7 +32,7 @@ function create_portfolio_categories() {
 		'rest_base'				=> 'portfolio-category',
 		'query_var'             => true,
 		'show_in_rest'			=> true,
-		'rewrite'               => array( 'slug' => 'portfolio-category' ),
+		'rewrite'               => array('slug' => $the_slug),
 	);
 
 	register_taxonomy("portfolio_categories", "portfolio", $args);
