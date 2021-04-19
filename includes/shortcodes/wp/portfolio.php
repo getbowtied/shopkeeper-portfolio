@@ -119,21 +119,13 @@ function shortcode_portfolio($atts, $content = null) {
 							case "grid1":
 
 								switch ($post_counter) {
-									case (($post_counter == 1)) :
+									case ( ( $post_counter%8 === 0 ) || ( $post_counter === 1 ) ) :
 										$portfolio_item_width = "width2";
 										$portfolio_item_height = "height2";
 										break;
-									case (($post_counter == 2)) :
+									case ( ( $post_counter%7 === 0 ) || ( $post_counter === 2 ) ) :
 										$portfolio_item_width = "width2";
 										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 7)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 8)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "height2";
 										break;
 									default :
 										$portfolio_item_width = "";
@@ -144,15 +136,11 @@ function shortcode_portfolio($atts, $content = null) {
 							case "grid2":
 
 								switch ($post_counter) {
-									case (($post_counter == 3)) :
+									case ( ( $post_counter%19 === 0 ) || ( $post_counter === 3 ) ) :
 										$portfolio_item_width = "width2";
 										$portfolio_item_height = "height2";
 										break;
-									case (($post_counter == 8)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 13)) :
+									case ( ( $post_counter%8 === 0 ) || ( $post_counter%13 === 0 ) ) :
 										$portfolio_item_width = "width2";
 										$portfolio_item_height = "";
 										break;
@@ -164,26 +152,12 @@ function shortcode_portfolio($atts, $content = null) {
 
 							case "grid3":
 
-								switch ($post_counter) {
-									case (($post_counter == 3)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 8)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 11)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									case (($post_counter == 14)) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									default :
-										$portfolio_item_width = "";
-										$portfolio_item_height = "";
+								if ( ( $post_counter === 3 ) || ( $post_counter%8 === 0 ) || ( $post_counter%11 === 0 ) || ( $post_counter%14 === 0 ) ) {
+									$portfolio_item_width = "width2";
+									$portfolio_item_height = "";
+								} else {
+									$portfolio_item_width = "";
+									$portfolio_item_height = "";
 								}
 								break;
 
