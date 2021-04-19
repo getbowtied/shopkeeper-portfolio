@@ -1,8 +1,7 @@
 <?php
 
-add_action( 'init', 'create_portfolio_categories' );
-
-function create_portfolio_categories() {
+add_action( 'init', 'shopkeeper_portfolio_register_taxonomy' );
+function shopkeeper_portfolio_register_taxonomy() {
 
 	$the_slug = get_option( 'gbt_portfolio_category_slug', 'portfolio-category' );
 

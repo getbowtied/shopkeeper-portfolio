@@ -1,29 +1,25 @@
 <?php
 
 // [portfolio]
-
-function shortcode_portfolio($atts, $content = null) {
+function shopkeeper_portfolio_shortcode($atts, $content = null) {
 
 	global $post;
 
-	$sliderrandomid = rand();
-	$portfolio_categories_queried = array();
+	extract( shortcode_atts( array(
+		'items' 					=> '9999',
+		'category'					=> '',
+		'show_filters' 				=> 'yes',
+		'order_by' 					=> 'date',
+		'order' 					=> 'desc',
+		'grid' 						=> 'default',
+		'portfolio_items_per_row' 	=> '3'
+	), $atts) );
 
-	extract(shortcode_atts(array(
-		"items" 					=> '9999',
-		"category" 					=> '',
-		"show_filters" 				=> 'yes',
-		"order_by" 					=> 'date',
-		"order" 					=> 'desc',
-		"grid" 						=> 'default',
-		"portfolio_items_per_row" 	=> '3'
-	), $atts));
 	ob_start();
-	?>
 
-    <?php
+	$items_per_row_class = ( 'default' == $grid ) ? ' default_grid items_per_row_' . $portfolio_items_per_row : '';
 
-	if ($order_by == "alphabetical") $order_by = 'title';
+	if( 'alphabetical' == $order_by) { $order_by = 'title'; }
 
 	$args = array(
 		'post_status' 			=> 'publish',
@@ -34,176 +30,138 @@ function shortcode_portfolio($atts, $content = null) {
 		'order' 				=> $order,
 	);
 
-	$portfolioItems = new WP_Query( $args );
+	$portfolio_items = new WP_Query( $args );
 
-	while ( $portfolioItems->have_posts() ) : $portfolioItems->the_post();
-
-		$terms = get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
-
-		if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
-			foreach($terms as $term) {
-				$portfolio_categories_queried[$term->slug] = $term->name;
-			}
-		}
-
-	endwhile;
-
-	if ( count($portfolio_categories_queried) > 0 ) :
-
-		$portfolio_categories_queried = array_unique($portfolio_categories_queried);
-
-		if ($grid == "default") {
-			$items_per_row_class = ' default_grid items_per_row_'."$portfolio_items_per_row";
-		} else {
-			$items_per_row_class = '';
-		}
-
+	if( $portfolio_items ) {
 		?>
 
 		<div class="portfolio-isotope-container<?php echo esc_html($items_per_row_class);?>">
+			<?php
 
-	        <?php if ($category == "") : ?>
-	        <?php if ($show_filters == "yes") : ?>
-	        <div class="portfolio-filters">
-	            <?php
+			if( empty($category) && ( 'yes' == $show_filters ) ) {
+				$categories_list = array();
 
-				if ( !empty( $portfolio_categories_queried ) && !is_wp_error( $portfolio_categories_queried ) ){
-	                echo '<ul class="filters-group list-centered">';
-	                    echo '<li class="filter-item is-checked" data-filter="*">' . esc_html__("Show all", "shopkeeper-portfolio") . '</li>';
-	                foreach ( $portfolio_categories_queried as $key => $value ) {
-	                    echo '<li class="filter-item" data-filter=".' . $key . '">' . $value . '</li>';
-	                }
-	                echo '</ul>';
-	            }
+				while ( $portfolio_items->have_posts() ) {
+					$portfolio_items->the_post();
+					$terms = get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
+					if ( !empty( $terms ) && !is_wp_error( $terms ) ) {
+						foreach($terms as $term) {
+							$categories_list[$term->slug] = $term->name;
+						}
+					}
+				}
 
-	            ?>
-	        </div>
-	        <?php endif; ?>
-	        <?php endif; ?>
+				$categories_list = array_unique($categories_list);
+
+				if( !empty($categories_list) && is_array($categories_list) && !is_wp_error($categories_list) ) {
+					?>
+					<div class="portfolio-filters list_categories_wrapper">
+						<ul class="filters-group list_categories list-centered">
+							<li class="filter-item is-checked" data-filter="*"><span><?php esc_html_e( 'Show all', 'shopkeeper-portfolio' ); ?></span></li>
+							<?php foreach ( $categories_list as $key => $value ) { ?>
+								<li class="filter-item" data-filter=".<?php echo esc_attr($key); ?>"><span><?php echo esc_html($value); ?></span></li>
+							<?php } ?>
+						</ul>
+			        </div>
+					<?php
+				}
+			}
+			?>
 
 	        <div class="portfolio-isotope">
-
 	            <div class="portfolio-grid-sizer"></div>
-
 	                <?php
 
 	                $post_counter = 0;
 
-	                while ( $portfolioItems->have_posts() ) : $portfolioItems->the_post();
+	                while ( $portfolio_items->have_posts() ) {
+						$portfolio_items->the_post();
 
 						$post_counter++;
 
-						$related_thumb = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'large' );
+						$portfolio_item_width  	= '';
+						$portfolio_item_height 	= '';
+						$related_thumb 			= wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'large' );
+						$item_color_option 		= get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) ? get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) : '';
+	                    $item_categories   		= get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
+	                    $item_categories_list   = '';
 
-	                    $terms_slug = get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
-
-	                    $term_slug_class = "";
-
-	                    if ( !empty( $terms_slug ) && !is_wp_error( $terms_slug ) ){
-	                        foreach ( $terms_slug as $term_slug ) {
-	                            $term_slug_class .=  $term_slug->slug . " ";
+	                    if ( !empty( $item_categories ) && !is_wp_error( $item_categories ) ) {
+	                        foreach ( $item_categories as $term_slug ) {
+	                            $item_categories_list .=  $term_slug->slug . ' ';
 	                        }
 	                    }
 
-	                    if (get_post_meta( $post->ID, 'portfolio_color_meta_box', true )) {
-	                        $portfolio_color_option = get_post_meta( $post->ID, 'portfolio_color_meta_box', true );
-	                    } else {
-	                        $portfolio_color_option = "none";
-	                    }
+						switch( $grid ) {
+							case 'grid1':
 
-						$portfolio_item_width = "";
-						$portfolio_item_height = "";
-
-						switch ($grid) {
-
-							case "grid1":
-
-								switch ($post_counter) {
-									case ( ( $post_counter%8 === 0 ) || ( $post_counter === 1 ) ) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "height2";
-										break;
-									case ( ( $post_counter%7 === 0 ) || ( $post_counter === 2 ) ) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									default :
-										$portfolio_item_width = "";
-										$portfolio_item_height = "";
+								if( ( $post_counter%8 === 0 ) || ( $post_counter === 1 ) ) {
+									$portfolio_item_width  = 'width2';
+									$portfolio_item_height = 'height2';
+								}
+								if( ( $post_counter%7 === 0 ) || ( $post_counter === 2 ) ) {
+									$portfolio_item_width  = 'width2';
+									$portfolio_item_height = '';
 								}
 								break;
 
-							case "grid2":
+							case 'grid2':
 
-								switch ($post_counter) {
-									case ( ( $post_counter%19 === 0 ) || ( $post_counter === 3 ) ) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "height2";
-										break;
-									case ( ( $post_counter%8 === 0 ) || ( $post_counter%13 === 0 ) ) :
-										$portfolio_item_width = "width2";
-										$portfolio_item_height = "";
-										break;
-									default :
-										$portfolio_item_width = "";
-										$portfolio_item_height = "";
+								if( ( $post_counter%19 === 0 ) || ( $post_counter === 3 ) ) {
+									$portfolio_item_width  = 'width2';
+									$portfolio_item_height = 'height2';
+								}
+								if( ( $post_counter%8 === 0 ) || ( $post_counter%13 === 0 ) ) {
+									$portfolio_item_width  = 'width2';
+									$portfolio_item_height = '';
 								}
 								break;
 
-							case "grid3":
+							case 'grid3':
 
 								if ( ( $post_counter === 3 ) || ( $post_counter%8 === 0 ) || ( $post_counter%11 === 0 ) || ( $post_counter%14 === 0 ) ) {
-									$portfolio_item_width = "width2";
-									$portfolio_item_height = "";
-								} else {
-									$portfolio_item_width = "";
-									$portfolio_item_height = "";
+									$portfolio_item_width = 'width2';
+									$portfolio_item_height = '';
 								}
 								break;
 
 							default:
 
-								$portfolio_item_width = "";
-								$portfolio_item_height = "";
-
+								$portfolio_item_width = '';
+								$portfolio_item_height = '';
+								break;
 						}
 
 	                ?>
 
-	                    <div class="portfolio-box hidden <?php echo esc_html($portfolio_item_width); ?> <?php echo esc_html($portfolio_item_height); ?> <?php echo esc_html($term_slug_class); ?>">
+                    <div class="portfolio-box hidden <?php echo esc_attr($portfolio_item_width); ?> <?php echo esc_attr($portfolio_item_height); ?> <?php echo esc_attr($item_categories_list); ?>">
+                        <a href="<?php echo esc_url( get_permalink(get_the_ID()) ); ?>" class="portfolio-box-inner hover-effect-link" style="<?php echo !empty($item_color_option) ? 'background-color:' . esc_attr($item_color_option) . ';' : ''; ?>">
+                            <div class="portfolio-content-wrapper hover-effect-content">
 
-	                        <a href="<?php echo get_permalink(get_the_ID()); ?>" class="portfolio-box-inner hover-effect-link" style="background-color:<?php echo esc_html($portfolio_color_option); ?>">
+                                <?php if ( isset($related_thumb[0]) && ($related_thumb[0] != "") ) { ?>
+                                    <span class="portfolio-thumb hover-effect-thumb" style="background-image: url(<?php echo esc_url($related_thumb[0]); ?>)"></span>
+                                <?php } ?>
 
-	                            <div class="portfolio-content-wrapper hover-effect-content">
+                                <h2 class="portfolio-title hover-effect-title"><?php the_title(); ?></h2>
+                                <p class="portfolio-categories hover-effect-text"><?php echo strip_tags( get_the_term_list(get_the_ID(), 'portfolio_categories', "", ", ") ); ?></p>
 
-	                                <?php if ( isset($related_thumb[0]) && ($related_thumb[0] != "") ) : ?>
-	                                    <span class="portfolio-thumb hover-effect-thumb" style="background-image: url(<?php echo esc_url($related_thumb[0]); ?>)"></span>
-	                                <?php endif; ?>
+                            </div>
+                        </a>
+                    </div>
 
-	                                <h2 class="portfolio-title hover-effect-title"><?php the_title(); ?></h2>
+                <?php } ?>
+	        </div>
 
-	                                <p class="portfolio-categories hover-effect-text"><?php echo strip_tags (get_the_term_list(get_the_ID(), 'portfolio_categories', "", ", "));?></p>
+	    </div>
 
-	                            </div>
-
-	                        </a>
-
-	                    </div>
-
-	                <?php endwhile; // end of the loop. ?>
-
-	        </div><!--portfolio-isotope-->
-
-	    </div><!--portfolio-isotope-container-->
-
-	<?php
-
-	endif;
+		<?php
+	}
 
 	wp_reset_query();
 	$content = ob_get_contents();
 	ob_end_clean();
+
 	return $content;
 }
 
-add_shortcode("portfolio", "shortcode_portfolio");
+add_shortcode( 'portfolio', 'shopkeeper_portfolio_shortcode' );

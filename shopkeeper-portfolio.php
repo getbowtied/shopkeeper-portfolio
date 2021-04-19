@@ -32,8 +32,6 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
     'shopkeeper-portfolio'
 );
 
-define( 'SK_PORTFOLIO_ENQUEUE_SUFFIX', SCRIPT_DEBUG ? '' : '.min' );
-
 if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
     /**
@@ -232,7 +230,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
             add_action( 'wp_enqueue_scripts', function() {
                 wp_enqueue_script(
                     'gbt-portfolio-scripts',
-                    plugins_url( 'includes/assets/js/portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.js', __FILE__ ),
+                    plugins_url( 'includes/assets/js/portfolio.min.js', __FILE__ ),
                     array('jquery'),
                     false,
                     true
@@ -267,7 +265,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                     global $post_type;
                     wp_enqueue_script(
                         'gbt-portfolio-admin-scripts',
-                        plugins_url( 'includes/assets/js/wp-admin-portfolio'.SK_PORTFOLIO_ENQUEUE_SUFFIX.'.js', __FILE__ ),
+                        plugins_url( 'includes/assets/js/wp-admin-portfolio.min.js', __FILE__ ),
                         array('wp-color-picker'),
                         false
                     );

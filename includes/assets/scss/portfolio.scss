@@ -1,3 +1,9 @@
+.portfolio-filters {
+	margin-bottom: 2.5rem;
+}
+
+
+
 .portfolio_content_nav
 {
 	clear: both;
@@ -63,38 +69,6 @@
     position: absolute;
     width: 100%;
 }
-
-
-/* Portfolio Filters */
-
-.portfolio-filters .filters-group.list-centered
-{
-	margin-bottom: 90px;
-}
-
-.filters-group li
-{
-    display: inline-block;
-    font-size: 13px;
-    font-weight: bold;
-    margin-left: 2px;
-	margin-bottom: 10px;
-	margin: 0 12px 5px;
-    padding: 5px 0px;
-    border-bottom: 1px solid #ddd;
-    text-transform: uppercase;
-	display: inline-block;
-	cursor: pointer;
-
-	transition: color 0.3s, border-color 0.2s;
-	-webkit-transition: color 0.3s, border-color 0.3s;
-}
-
-.filters-group li:hover
-{
-	border-bottom: 1px solid transparent;
-}
-
 
 /* Portfolio Hover Effect */
 
@@ -362,11 +336,6 @@
 	.wpb_wrapper h2.hover-effect-title
 	{
 		font-size: 1.875rem;
-	}
-
-	.filters-group.list-centered
-	{
-		margin-bottom: 5px;
 	}
 
 	/* portfolio single */

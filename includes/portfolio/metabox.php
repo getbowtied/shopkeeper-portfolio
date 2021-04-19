@@ -1,18 +1,15 @@
 <?php
 
 // CREATE
-
-add_action( 'add_meta_boxes', 'portfolio_options_meta_box_add' );
-
-function portfolio_options_meta_box_add()
-{
-    add_meta_box( 'portfolio_options_meta_box', 'Portfolio Item Options', 'portfolio_options_meta_box_content', 'portfolio', 'side', 'high' );
+add_action( 'add_meta_boxes', 'shopkeeper_portfolio_options_meta_box_add' );
+function shopkeeper_portfolio_options_meta_box_add() {
+    add_meta_box( 'portfolio_options_meta_box', 'Portfolio Item Options', 'shopkeeper_portfolio_options_meta_box_content', 'portfolio', 'side', 'high' );
 }
 
-function portfolio_options_meta_box_content()
-{
+function shopkeeper_portfolio_options_meta_box_content() {
     // $post is already set, and contains an object: the WordPress post
     global $post;
+
     $values = get_post_custom( $post->ID );
 	$check = isset($values['portfolio_title_meta_box_check']) ? esc_attr($values['portfolio_title_meta_box_check'][0]) : 'on';
 	$portfolio_color_meta_box_value = isset($values['portfolio_color_meta_box']) ? esc_attr($values['portfolio_color_meta_box'][0]) : '';
@@ -73,11 +70,8 @@ function portfolio_options_meta_box_content()
 }
 
 // SAVE
-
 add_action( 'save_post', 'portfolio_options_meta_box_save' );
-
-function portfolio_options_meta_box_save($post_id)
-{
+function portfolio_options_meta_box_save($post_id) {
     // Bail if we're doing an auto save
     if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 
