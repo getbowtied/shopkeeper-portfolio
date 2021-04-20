@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Shopkeeper Portfolio\n"
-"POT-Creation-Date: 2019-04-03 14:14+0300\n"
+"POT-Creation-Date: 2021-04-20 09:31+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -17,177 +17,197 @@ msgstr ""
 "esc_html_e;esc_html_x:1,2c;i18n;i18n.__\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: core\n"
 
-#: includes/blocks/portfolio/block.js:22 includes/portfolio/post-type.php:10
-#: includes/portfolio/post-type.php:22 shopkeeper-portfolio.php:121
+#: includes/blocks/portfolio/block.js:26 includes/portfolio/post-type.php:9
+#: includes/portfolio/post-type.php:21 shopkeeper-portfolio.php:119
 msgid "Portfolio"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:32
+#: includes/blocks/portfolio/block.js:36
 msgid "Equal Boxes"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:33
+#: includes/blocks/portfolio/block.js:37
 msgid "Masonry Style V1"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:34
+#: includes/blocks/portfolio/block.js:38
 msgid "Masonry Style V2"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:35
+#: includes/blocks/portfolio/block.js:39
 msgid "Masonry Style V3"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:211
+#: includes/blocks/portfolio/block.js:215
 msgid "Update"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:213
+#: includes/blocks/portfolio/block.js:217
 msgid "Updating"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:430
+#: includes/blocks/portfolio/block.js:436
 msgid "Categories:"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:445
+#: includes/blocks/portfolio/block.js:451
 msgid "Alphabetical Ascending"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:446
+#: includes/blocks/portfolio/block.js:452
 msgid "Alphabetical Descending"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:447
+#: includes/blocks/portfolio/block.js:453
 msgid "Date Ascending"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:448
+#: includes/blocks/portfolio/block.js:454
 msgid "Date Descending"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:450
+#: includes/blocks/portfolio/block.js:456
 msgid "Order By"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:469
+#: includes/blocks/portfolio/block.js:475
 msgid "Number of Portfolio Items"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:495
+#: includes/blocks/portfolio/block.js:501
 msgid "Show Filters?"
 msgstr ""
 
-#: includes/blocks/portfolio/block.js:511
+#: includes/blocks/portfolio/block.js:517
 msgid "Columns"
 msgstr ""
 
-#: includes/blocks/portfolio/block.php:111
-#: includes/shortcodes/wp/portfolio.php:71
+#: includes/blocks/portfolio/block.php:97 includes/shortcodes/portfolio.php:60
 msgid "Show all"
 msgstr ""
 
-#: includes/portfolio/post-type.php:11
+#: includes/portfolio/post-type.php:10
 msgid "Portfolio Item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:12
+#: includes/portfolio/post-type.php:11
 msgid "Add New"
 msgstr ""
 
-#: includes/portfolio/post-type.php:13
+#: includes/portfolio/post-type.php:12
 msgid "Add New Portfolio item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:14
+#: includes/portfolio/post-type.php:13
 msgid "Edit Portfolio item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:15
+#: includes/portfolio/post-type.php:14
 msgid "New Portfolio item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:16
+#: includes/portfolio/post-type.php:15
 msgid "All Portfolio items"
 msgstr ""
 
-#: includes/portfolio/post-type.php:17
+#: includes/portfolio/post-type.php:16
 msgid "View Portfolio item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:18
+#: includes/portfolio/post-type.php:17
 msgid "Search Portfolio item"
 msgstr ""
 
-#: includes/portfolio/post-type.php:19
+#: includes/portfolio/post-type.php:18
 msgid "No Portfolio item found"
 msgstr ""
 
-#: includes/portfolio/post-type.php:20
+#: includes/portfolio/post-type.php:19
 msgid "No Portfolio item found in Trash"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:8 includes/portfolio/taxonomy.php:21
+#: includes/portfolio/taxonomy.php:9 includes/portfolio/taxonomy.php:22
 msgid "Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:9
+#: includes/portfolio/taxonomy.php:10
 msgid "Portfolio Category"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:10
+#: includes/portfolio/taxonomy.php:11
 msgid "Search Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:11
+#: includes/portfolio/taxonomy.php:12
 msgid "Popular Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:12
+#: includes/portfolio/taxonomy.php:13
 msgid "All Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:13
+#: includes/portfolio/taxonomy.php:14
 msgid "Edit Portfolio Category"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:14
+#: includes/portfolio/taxonomy.php:15
 msgid "Update Portfolio Category"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:15
+#: includes/portfolio/taxonomy.php:16
 msgid "Add New Portfolio Category"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:16
+#: includes/portfolio/taxonomy.php:17
 msgid "New Portfolio Category Name"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:17
+#: includes/portfolio/taxonomy.php:18
 msgid "Separate Portfolio Categories with commas"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:18
+#: includes/portfolio/taxonomy.php:19
 msgid "Add or remove Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:19
+#: includes/portfolio/taxonomy.php:20
 msgid "Choose from the most used Portfolio Categories"
 msgstr ""
 
-#: includes/portfolio/taxonomy.php:20
+#: includes/portfolio/taxonomy.php:21
 msgid "No Portfolio Category found."
 msgstr ""
 
-#: shopkeeper-portfolio.php:138
+#: includes/templates/single-portfolio-boxed.php:59
+#: includes/templates/single-portfolio-full.php:47
+msgid "Previous Post"
+msgstr ""
+
+#: includes/templates/single-portfolio-boxed.php:64
+#: includes/templates/single-portfolio-full.php:52
+msgid "Next Post"
+msgstr ""
+
+#: shopkeeper-portfolio.php:136
+msgid "Portfolio Category Slug"
+msgstr ""
+
+#: shopkeeper-portfolio.php:137
+msgid ""
+"<span class=\"dashicons dashicons-editor-help\"></span>Default slug is "
+"\"portfolio-category\". Enter a custom one to overwrite it. <br/><b>You need "
+"to regenerate your permalinks if you modify this!</b>"
+msgstr ""
+
+#: shopkeeper-portfolio.php:156
 msgid "Portfolio Item Slug"
 msgstr ""
 
-#: shopkeeper-portfolio.php:139
+#: shopkeeper-portfolio.php:157
 msgid ""
 "<span class=\"dashicons dashicons-editor-help\"></span>Default slug is "
 "\"portfolio-item\". Enter a custom one to overwrite it. <br/><b>You need to "

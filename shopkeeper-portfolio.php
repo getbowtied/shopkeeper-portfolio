@@ -189,7 +189,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         * @return void
         */
         public static function gbt_register_shortcode() {
-            include_once( dirname(__FILE__) . '/includes/shortcodes/wp/portfolio.php' );
+            include_once( dirname(__FILE__) . '/includes/shortcodes/portfolio.php' );
         }
 
         /**
