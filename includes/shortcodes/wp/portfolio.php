@@ -82,7 +82,7 @@ function shopkeeper_portfolio_shortcode($atts, $content = null) {
 					$portfolio_item_width  	= '';
 					$portfolio_item_height 	= '';
 					$related_thumb 			= wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'large' );
-					$item_color_option 		= get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) ? get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) : '';
+					$item_color_option 		= get_post_meta( get_the_ID(), 'portfolio_color_meta_box', true ) ? get_post_meta( get_the_ID(), 'portfolio_color_meta_box', true ) : '';
                     $item_categories   		= get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
                     $item_categories_list   = '';
 
