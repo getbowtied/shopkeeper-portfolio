@@ -32,38 +32,44 @@ $myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
     'shopkeeper-portfolio'
 );
 
-if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
+if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 
     /**
-    * ShopkeeperPortfolio class.
+    * Shopkeeper_Portfolio class.
     */
-    class ShopkeeperPortfolio {
+    class Shopkeeper_Portfolio {
 
         /**
         * The single instance of the class.
         *
-        * @var ShopkeeperPortfolio
+        * @var Shopkeeper_Portfolio
         */
         protected static $_instance = null;
 
         /**
-        * ShopkeeperPortfolio constructor.
+        * Shopkeeper_Portfolio constructor.
         *
         */
         public function __construct() {
 
-            $this->gbt_import_options();
-            $this->gbt_customizer_options();
-            $this->gbt_register_post_type();
-            $this->gbt_add_metabox();
-            $this->gbt_register_shortcode();
-            $this->gbt_register_scripts();
-            $this->gbt_register_admin_scripts();
-            $this->gbt_register_styles();
-            $this->gbt_add_block();
+            add_action( 'init', array( $this, 'register_post_type' ) );
+            add_action( 'init', array( $this, 'register_taxonomy' ) );
 
-            add_filter( 'single_template', array( $this, 'gbt_portfolio_template' ), 99 );
-            add_filter( 'taxonomy_template', array( $this, 'gbt_portfolio_taxonomy_template' ), 99 );
+            $this->add_portfolio_metabox();
+            $this->register_portfolio_shortcode();
+            $this->register_portfolio_block();
+
+            add_action( 'customize_register', array( $this, 'register_customizer_options' ) );
+
+            add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
+            add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ), 300 );
+
+            if ( is_admin() ) {
+                add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+            }
+
+            add_filter( 'single_template', array( $this, 'get_portfolio_single_template' ), 99 );
+            add_filter( 'taxonomy_template', array( $this, 'get_portfolio_taxonomy_template' ), 99 );
 
             if ( defined(  'WPB_VC_VERSION' ) ) {
                 include_once( dirname(__FILE__) . '/includes/shortcodes/wb/portfolio.php' );
@@ -74,9 +80,9 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         }
 
         /**
-        * Ensures only one instance of ShopkeeperPortfolio is loaded or can be loaded.
+        * Ensures only one instance of Shopkeeper_Portfolio is loaded or can be loaded.
         *
-        * @return ShopkeeperPortfolio
+        * @return Shopkeeper_Portfolio
         */
         public static function instance() {
             if ( is_null( self::$_instance ) ) {
@@ -86,33 +92,11 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         }
 
         /**
-        * Imports customizer options stored as theme mods into the options WP table.
-        *
-        * @return void
-        */
-        private function gbt_import_options() {
-            if( !get_option( 'gbt_portfolio_options_import', false ) ) {
-                $portfolio_option = get_theme_mod( 'portfolio_item_slug', 'portfolio-item' );
-                update_option( 'gbt_portfolio_item_slug', $portfolio_option );
-                update_option( 'gbt_portfolio_options_import', true );
-            }
-        }
-
-        /**
-        * Registers customizer options.
-        *
-        * @return void
-        */
-        protected function gbt_customizer_options() {
-            add_action( 'customize_register', array( $this, 'gbt_portfolio_customizer' ) );
-        }
-
-        /**
         * Creates customizer options.
         *
-        * @return void
+        * @param object $wp_customize WP Customize.
         */
-        public function gbt_portfolio_customizer( $wp_customize ) {
+        public function register_customizer_options( $wp_customize ) {
 
             // Section
             $wp_customize->add_section( 'portfolio', array(
@@ -163,24 +147,95 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         }
 
         /**
-        * Registers portfolio post type and taxonomy
-        *
-        * @return void
+        * Registers portfolio post type.
         */
-        public static function gbt_register_post_type() {
+        public static function register_post_type() {
+            $the_slug = get_option( 'gbt_portfolio_item_slug', 'portfolio-item' );
 
-            include_once( dirname(__FILE__) . '/includes/portfolio/post-type.php' );
-            include_once( dirname(__FILE__) . '/includes/portfolio/taxonomy.php' );
+        	$labels = array(
+        		'name' 					=> __('Portfolio', 'shopkeeper-portfolio'),
+        		'singular_name' 		=> __('Portfolio Item', 'shopkeeper-portfolio'),
+        		'add_new' 				=> __('Add New', 'shopkeeper-portfolio'),
+        		'add_new_item' 			=> __('Add New Portfolio item', 'shopkeeper-portfolio'),
+        		'edit_item' 			=> __('Edit Portfolio item', 'shopkeeper-portfolio'),
+        		'new_item' 				=> __('New Portfolio item', 'shopkeeper-portfolio'),
+        		'all_items' 			=> __('All Portfolio items', 'shopkeeper-portfolio'),
+        		'view_item' 			=> __('View Portfolio item', 'shopkeeper-portfolio'),
+        		'search_items' 			=> __('Search Portfolio item', 'shopkeeper-portfolio'),
+        		'not_found' 			=> __('No Portfolio item found', 'shopkeeper-portfolio'),
+        		'not_found_in_trash' 	=> __('No Portfolio item found in Trash', 'shopkeeper-portfolio'),
+        		'parent_item_colon' 	=> '',
+        		'menu_name' 			=> __('Portfolio', 'shopkeeper-portfolio'),
+        	);
+
+        	$args = array(
+        		'labels' 				=> $labels,
+        		'public' 				=> true,
+        		'publicly_queryable' 	=> true,
+        		'exclude_from_search' 	=> true,
+        		'show_ui' 				=> true,
+        		'show_in_menu' 			=> true,
+        		'show_in_nav_menus' 	=> true,
+        		'query_var' 			=> true,
+        		'rewrite' 				=> true,
+        		'show_in_rest'			=> true,
+        		'capability_type' 		=> 'post',
+        		'rest_base'				=> 'portfolio-item',
+        		'menu_icon'   			=> 'dashicons-category',
+        		'has_archive' 			=> true,
+        		'hierarchical' 			=> true,
+        		'menu_position' 		=> 4,
+        		'supports' 				=> array('title', 'editor', 'block-editor', 'thumbnail', 'revisions'),
+        		'rewrite' 				=> array('slug' => $the_slug),
+        		'with_front' 			=> false,
+        	);
+
+        	register_post_type( 'portfolio', $args );
+        }
+
+        /**
+        * Registers portfolio taxonomy.
+        */
+        public static function register_taxonomy() {
+            $the_slug = get_option( 'gbt_portfolio_category_slug', 'portfolio-category' );
+
+        	$labels = array(
+        		'name'                       => __('Portfolio Categories', 'shopkeeper-portfolio'),
+        		'singular_name'              => __('Portfolio Category', 'shopkeeper-portfolio'),
+        		'search_items'               => __('Search Portfolio Categories', 'shopkeeper-portfolio'),
+        		'popular_items'              => __('Popular Portfolio Categories', 'shopkeeper-portfolio'),
+        		'all_items'                  => __('All Portfolio Categories', 'shopkeeper-portfolio'),
+        		'edit_item'                  => __('Edit Portfolio Category', 'shopkeeper-portfolio'),
+        		'update_item'                => __('Update Portfolio Category', 'shopkeeper-portfolio'),
+        		'add_new_item'               => __('Add New Portfolio Category', 'shopkeeper-portfolio'),
+        		'new_item_name'              => __('New Portfolio Category Name', 'shopkeeper-portfolio'),
+        		'separate_items_with_commas' => __('Separate Portfolio Categories with commas', 'shopkeeper-portfolio'),
+        		'add_or_remove_items'        => __('Add or remove Portfolio Categories', 'shopkeeper-portfolio'),
+        		'choose_from_most_used'      => __('Choose from the most used Portfolio Categories', 'shopkeeper-portfolio'),
+        		'not_found'                  => __('No Portfolio Category found.', 'shopkeeper-portfolio'),
+        		'menu_name'                  => __('Portfolio Categories', 'shopkeeper-portfolio'),
+        	);
+
+        	$args = array(
+        		'hierarchical'          => true,
+        		'labels'                => $labels,
+        		'show_ui'               => true,
+        		'show_admin_column'     => true,
+        		'hierarchical' 			=> true,
+        		'rest_base'				=> 'portfolio-category',
+        		'query_var'             => true,
+        		'show_in_rest'			=> true,
+        		'rewrite'               => array('slug' => $the_slug),
+        	);
+
+        	register_taxonomy( 'portfolio_categories', 'portfolio', $args );
         }
 
         /**
         * Adds portfolio metabox
-        *
-        * @return void
         */
-        public static function gbt_add_metabox() {
-
-            include_once( dirname(__FILE__) . '/includes/portfolio/metabox.php' );
+        public static function add_portfolio_metabox() {
+            require dirname(__FILE__) . '/includes/portfolio-metabox.php';
         }
 
         /**
@@ -188,7 +243,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         *
         * @return void
         */
-        public static function gbt_register_shortcode() {
+        public static function register_portfolio_shortcode() {
             include_once( dirname(__FILE__) . '/includes/shortcodes/portfolio.php' );
         }
 
@@ -197,7 +252,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         *
         * @return void
         */
-        public static function gbt_add_block() {
+        public static function register_portfolio_block() {
             if( class_exists('WP_Block_Type_Registry') ) {
                 $registry = new WP_Block_Type_Registry;
                 if( !$registry->is_registered( 'getbowtied/sk-portfolio' ) ) {
@@ -208,158 +263,68 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 
         /**
         * Enqueues portfolio styles
-        *
-        * @return void
         */
-        public static function gbt_register_styles() {
-            add_action( 'wp_enqueue_scripts', function() {
-                wp_enqueue_style(
-                    'gbt-portfolio-styles',
-                    plugins_url( 'includes/assets/css/portfolio.css', __FILE__ ),
-                    NULL
-                );
-            } );
+        public static function register_styles() {
+            wp_enqueue_style(
+                'shopkeeper-portfolio-styles',
+                plugins_url( 'assets/css/portfolio.css', __FILE__ ),
+                NULL
+            );
         }
 
         /**
         * Enqueues portfolio scripts
-        *
-        * @return void
         */
-        public static function gbt_register_scripts() {
-            add_action( 'wp_enqueue_scripts', function() {
-                wp_enqueue_script(
-                    'gbt-portfolio-scripts',
-                    plugins_url( 'includes/assets/js/portfolio.min.js', __FILE__ ),
-                    array('jquery'),
-                    false,
-                    true
-                );
+        public static function register_scripts() {
+            wp_enqueue_script(
+                'shopkeeper-portfolio-scripts',
+                plugins_url( 'assets/js/portfolio.min.js', __FILE__ ),
+                array('jquery'),
+                false,
+                true
+            );
 
-                wp_enqueue_script(
-                    'isotope-js',
-                    plugins_url( 'includes/assets/js/vendor/isotope.pkgd.min.js', __FILE__ ),
-                    array('jquery'),
-                    'v3.0.6',
-                    true
-                );
+            wp_enqueue_script(
+                'isotope-js',
+                plugins_url( 'assets/js/vendor/isotope.pkgd.min.js', __FILE__ ),
+                array('jquery'),
+                'v3.0.6',
+                true
+            );
 
-                wp_enqueue_script(
-                    'imagesloaded',
-                    plugins_url( 'includes/assets/js/vendor/imagesloaded.min.js', __FILE__ ),
-                    array('jquery'),
-                    '3.1.4',
-                    true
-                );
-            }, 300 );
+            wp_enqueue_script(
+                'imagesloaded',
+                plugins_url( 'assets/js/vendor/imagesloaded.min.js', __FILE__ ),
+                array('jquery'),
+                '3.1.4',
+                true
+            );
         }
 
         /**
         * Enqueues portfolio admin scripts
-        *
-        * @return void
         */
-        public static function gbt_register_admin_scripts() {
-            if ( is_admin() ) {
-                add_action( 'admin_enqueue_scripts', function() {
-                    global $post_type;
-                    wp_enqueue_script(
-                        'gbt-portfolio-admin-scripts',
-                        plugins_url( 'includes/assets/js/wp-admin-portfolio.js', __FILE__ ),
-                        array('wp-color-picker'),
-                        false
-                    );
-                } );
-            }
+        public static function register_admin_scripts() {
+            wp_enqueue_script(
+                'shopkeeper-portfolio-admin-scripts',
+                plugins_url( 'assets/js/wp-admin-portfolio.js', __FILE__ ),
+                array('wp-color-picker'),
+                false
+            );
         }
 
         /**
-        * Locate template.
+        * Returns portfolio template.
         *
-        * Locate the called template.
-        * Search Order:
-        * 1. /themes/shopkeeper/shopkeeper-portfolio/$template_name
-        * 2. /themes/shopkeeper/$template_name
-        * 3. /plugins/shopkeeper-portfolio/includes/templates/$template_name.
-        *
-        * @since 1.3.0
-        *
-        * @param 	string 	$template_name			Template to load.
-        * @param 	string 	$string $template_path	Path to templates.
-        * @param 	string	$default_path			Default path to template files.
-        * @return 	string 							Path to the template file.
+        * @param string $template Template path.
+        * @return string Template path.
         */
-        public static function sk_gbt_locate_template( $template_name, $template_path = '', $default_path = '' ) {
-
-            // Set variable to search in shopkeeper-portfolio folder of theme.
-            if ( ! $template_path ) :
-                $template_path = 'shopkeeper-portfolio/';
-            endif;
-
-            // Set default plugin templates path.
-            if ( ! $default_path ) :
-                $default_path = plugin_dir_path( __FILE__ ) . 'includes/templates/'; // Path to the template folder
-            endif;
-
-            // Search template file in theme folder.
-            $template = locate_template( array(
-                $template_path . $template_name,
-                $template_name
-            ) );
-
-            // Get plugins template file.
-            if ( ! $template ) :
-                $template = $default_path . $template_name;
-            endif;
-
-            return apply_filters( 'sk_gbt_locate_template', $template, $template_name, $template_path, $default_path );
-        }
-
-        /**
-        * Get template.
-        *
-        * Search for the template and include the file.
-        *
-        * @since 1.3.0
-        *
-        * @see sk_gbt_locate_template()
-        *
-        * @param string 	$template_name			Template to load.
-        * @param array 	$args					Args passed for the template file.
-        * @param string 	$string $template_path	Path to templates.
-        * @param string	$default_path			Default path to template files.
-        */
-        public static function sk_gbt_get_template( $template_name, $args = array(), $tempate_path = '', $default_path = '' ) {
-
-            if ( is_array( $args ) && isset( $args ) ) :
-                extract( $args );
-            endif;
-
-            $template_file = self::sk_gbt_locate_template( $template_name, $tempate_path, $default_path );
-
-            if ( ! file_exists( $template_file ) ) :
-                _doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.3.0' );
-                return;
-            endif;
-
-            return $template_file;
-        }
-
-        /**
-        * Loads portfolio template
-        *
-        * @return void
-        */
-        public static function gbt_portfolio_template( $template ) {
+        public static function get_portfolio_single_template( $template ) {
             global $post;
 
             if ( $post->post_type == 'portfolio' ) {
-                $page_portfolio_layout = get_post_meta( get_the_ID(), 'portfolio_layout', true );
-
-                if( $page_portfolio_layout == 'boxed' ) {
-                    $template = self::sk_gbt_get_template( 'single-portfolio-boxed.php' );
-                } else {
-                    $template = self::sk_gbt_get_template( 'single-portfolio-full.php' );
+                if ( file_exists( plugin_dir_path( __FILE__ ) . '/templates/single-portfolio.php' ) ) {
+                    return plugin_dir_path( __FILE__ ) . '/templates/single-portfolio.php';
                 }
             }
 
@@ -367,14 +332,17 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         }
 
         /**
-        * Loads portfolio taxonomy template
+        * Returns portfolio taxonomy template.
         *
-        * @return void
+        * @param string $template Template path.
+        * @return string Template path.
         */
-        public static function gbt_portfolio_taxonomy_template( $template ) {
+        public static function get_portfolio_taxonomy_template( $template ) {
 
             if( is_tax( 'portfolio_categories' ) ) {
-                $template = self::sk_gbt_get_template( 'taxonomy-portfolio_categories.php' );
+                if ( file_exists( plugin_dir_path( __FILE__ ) . '/templates/taxonomy-portfolio-category.php' ) ) {
+                    return plugin_dir_path( __FILE__ ) . '/templates/taxonomy-portfolio-category.php';
+                }
             }
 
             return $template;
@@ -384,8 +352,8 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
 endif;
 
 add_action( 'after_setup_theme', function() {
-    // Shopkeeper Dependent Components
+    // Shopkeeper Dependent Components.
     if( class_exists('Shopkeeper') ) {
-        $shopkeeper_portfolio = new ShopkeeperPortfolio;
+        $shopkeeper_portfolio = new Shopkeeper_Portfolio;
     }
 } );
