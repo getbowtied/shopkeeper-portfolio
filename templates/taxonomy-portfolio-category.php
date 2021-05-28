@@ -52,7 +52,7 @@ get_header();
 					while ( $portfolio_items->have_posts() ) {
 						$portfolio_items->the_post();
 
-						$portfolio_color_option = get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) ? get_post_meta( $post->ID, 'portfolio_color_meta_box', true ) : '';
+						$portfolio_color_option = get_post_meta( get_the_ID(), 'portfolio_color_meta_box', true ) ? get_post_meta( get_the_ID(), 'portfolio_color_meta_box', true ) : '';
 						$portfolio_color_style  = ! empty( $portfolio_color_option ) ? 'background-color:' . $portfolio_color_option : '';
 						?>
 

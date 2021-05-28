@@ -15,8 +15,7 @@ if ( ! function_exists( 'gbt_18_sk_portfolio_editor_assets' ) ) {
 		wp_register_style(
 			'gbt_18_sk_portfolio_editor_styles',
 			plugins_url( 'assets/css/editor.css', dirname(__FILE__) ),
-			array( 'wp-edit-blocks' ),
-            filemtime(plugin_dir_path(__FILE__) . '../assets/css/editor.min.css')
+			array( 'wp-edit-blocks' )
 		);
 	}
 }

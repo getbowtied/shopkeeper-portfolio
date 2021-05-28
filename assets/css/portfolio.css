@@ -14,7 +14,10 @@
 
 .portfolio-items-grid {
   display: block;
-  overflow: hidden; }
+  overflow: hidden;
+  width: 100%;
+  margin: 0;
+  white-space: nowrap; }
   @media only screen and (min-width: 1024px) {
     .portfolio-items-grid.columns-3 .portfolio-box {
       width: 33.333%;
@@ -27,22 +30,116 @@
     .portfolio-items-grid.columns-4 .portfolio-box {
       width: 25%;
       padding-bottom: 25%; } }
+  .portfolio-items-grid.masonry-grid1 .portfolio-box:first-child, .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(8n) {
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:first-child, .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(8n) {
+        width: 100%;
+        padding-bottom: 100%; } }
+    @media only screen and (min-width: 768px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:first-child, .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(8n) {
+        width: 66.666%;
+        padding-bottom: 66.666%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:first-child, .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(8n) {
+        width: 50%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:first-child, .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(8n) {
+        width: 40%;
+        padding-bottom: 40%; } }
+  .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(2), .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(7n) {
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(2), .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(7n) {
+        width: 100%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 768px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(2), .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(7n) {
+        width: 33.333%;
+        padding-bottom: 33.333%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(2), .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(7n) {
+        width: 50%;
+        padding-bottom: 25%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(2), .portfolio-items-grid.masonry-grid1 .portfolio-box:nth-child(7n) {
+        width: 40%;
+        padding-bottom: 20%; } }
+  .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(19n) {
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(19n) {
+        width: 100%;
+        padding-bottom: 100%; } }
+    @media only screen and (min-width: 768px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(19n) {
+        width: 66.666%;
+        padding-bottom: 66.666%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(19n) {
+        width: 50%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(19n) {
+        width: 40%;
+        padding-bottom: 40%; } }
+  .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(13n) {
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(13n) {
+        width: 100%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 768px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(13n) {
+        width: 33.333%;
+        padding-bottom: 33.333%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(13n) {
+        width: 50%;
+        padding-bottom: 25%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid2 .portfolio-box:nth-child(13n) {
+        width: 40%;
+        padding-bottom: 20%; } }
+  .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(11n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(14n) {
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(11n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(14n) {
+        width: 100%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 768px) {
+      .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(11n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(14n) {
+        width: 33.333%;
+        padding-bottom: 33.333%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(11n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(14n) {
+        width: 50%;
+        padding-bottom: 25%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(3), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(8n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(11n), .portfolio-items-grid.masonry-grid3 .portfolio-box:nth-child(14n) {
+        width: 40%;
+        padding-bottom: 20%; } }
   .portfolio-items-grid .portfolio-box {
+    clear: none;
     float: left;
     margin: 0;
+    overflow: hidden;
+    height: 0;
     padding-left: 0;
     padding-right: 0;
+    padding-top: 0;
     padding-bottom: 100%;
     position: relative;
-    -webkit-transition: opacity .3s ease;
-    -o-transition: opacity .3s ease;
-    transition: opacity .3s ease;
+    -webkit-transition: all .3s ease;
+    -o-transition: all .3s ease;
+    transition: all .3s ease;
     width: 100%; }
     @media only screen and (min-width: 481px) {
       .portfolio-items-grid .portfolio-box {
         width: 50%;
         padding-bottom: 50%; } }
-    @media only screen and (min-width: 767px) {
+    @media only screen and (min-width: 768px) {
       .portfolio-items-grid .portfolio-box {
         width: 33.333%;
         padding-bottom: 33.333%; } }
@@ -54,42 +151,11 @@
       .portfolio-items-grid .portfolio-box {
         width: 20%;
         padding-bottom: 20%; } }
-    .portfolio-items-grid .portfolio-box.width2 {
-      width: 100%; }
-      @media only screen and (min-width: 30.063em) {
-        .portfolio-items-grid .portfolio-box.width2 {
-          width: 100%;
-          padding-bottom: 50%; } }
-      @media only screen and (min-width: 56.3125em) {
-        .portfolio-items-grid .portfolio-box.width2 {
-          width: 66.6666666666%;
-          padding-bottom: 33.3333333333%; } }
-      @media only screen and (min-width: 80em) {
-        .portfolio-items-grid .portfolio-box.width2 {
-          width: 50%;
-          padding-bottom: 25%; } }
-      @media only screen and (min-width: 100.063em) {
-        .portfolio-items-grid .portfolio-box.width2 {
-          width: 40%;
-          padding-bottom: 20%; } }
-    .portfolio-items-grid .portfolio-box.width2.height2 {
-      width: 100%; }
-      @media only screen and (min-width: 30.063em) {
-        .portfolio-items-grid .portfolio-box.width2.height2 {
-          width: 100%;
-          padding-bottom: 100%; } }
-      @media only screen and (min-width: 56.3125em) {
-        .portfolio-items-grid .portfolio-box.width2.height2 {
-          width: 66.6666666666%;
-          padding-bottom: 66.6666666666%; } }
-      @media only screen and (min-width: 80em) {
-        .portfolio-items-grid .portfolio-box.width2.height2 {
-          width: 50%;
-          padding-bottom: 50%; } }
-      @media only screen and (min-width: 100.063em) {
-        .portfolio-items-grid .portfolio-box.width2.height2 {
-          width: 40%;
-          padding-bottom: 40%; } }
+    .portfolio-items-grid .portfolio-box.hidden {
+      opacity: 0;
+      visibility: hidden;
+      width: 0;
+      padding-bottom: 0; }
     .portfolio-items-grid .portfolio-box .portfolio-box-link {
       cursor: pointer;
       display: block;

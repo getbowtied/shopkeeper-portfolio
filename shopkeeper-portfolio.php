@@ -278,17 +278,9 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
         public static function register_scripts() {
             wp_enqueue_script(
                 'shopkeeper-portfolio-scripts',
-                plugins_url( 'assets/js/portfolio.min.js', __FILE__ ),
+                plugins_url( 'assets/js/portfolio.js', __FILE__ ),
                 array('jquery'),
                 false,
-                true
-            );
-
-            wp_enqueue_script(
-                'isotope-js',
-                plugins_url( 'assets/js/vendor/isotope.pkgd.min.js', __FILE__ ),
-                array('jquery'),
-                'v3.0.6',
                 true
             );
         }

@@ -22,6 +22,9 @@
 .portfolio-items-grid {
 	display: block;
 	overflow: hidden;
+	width: 100%;
+	margin: 0;
+	white-space: nowrap;
 
 	&.columns-3 {
 		.portfolio-box {
@@ -46,14 +49,157 @@
 		}
 	}
 
+	&.masonry-grid1 {
+		.portfolio-box {
+			&:first-child,
+			&:nth-child(8n) {
+				width: 100%;
+
+				@media only screen and (min-width: 481px) {
+					width: 100%;
+					padding-bottom: 100%;
+				}
+
+				@media only screen and (min-width: 768px) {
+					width: 66.666%;
+					padding-bottom: 66.666%;
+				}
+
+				@media only screen and (min-width: 1024px) {
+					width: 50%;
+					padding-bottom: 50%;
+				}
+
+				@media only screen and (min-width: 1200px) {
+					width: 40%;
+					padding-bottom: 40%;
+				}
+			}
+
+			&:nth-child(2),
+			&:nth-child(7n) {
+				width: 100%;
+
+				@media only screen and (min-width: 481px) {
+					width: 100%;
+					padding-bottom: 50%;
+				}
+
+				@media only screen and (min-width: 768px) {
+					width: 33.333%;
+					padding-bottom: 33.333%;
+				}
+
+				@media only screen and (min-width: 1024px) {
+					width: 50%;
+					padding-bottom: 25%;
+				}
+
+				@media only screen and (min-width: 1200px) {
+					width: 40%;
+					padding-bottom: 20%;
+				}
+			}
+		}
+	}
+
+	&.masonry-grid2 {
+		.portfolio-box {
+			&:nth-child(3),
+			&:nth-child(19n) {
+				width: 100%;
+
+				@media only screen and (min-width: 481px) {
+					width: 100%;
+					padding-bottom: 100%;
+				}
+
+				@media only screen and (min-width: 768px) {
+					width: 66.666%;
+					padding-bottom: 66.666%;
+				}
+
+				@media only screen and (min-width: 1024px) {
+					width: 50%;
+					padding-bottom: 50%;
+				}
+
+				@media only screen and (min-width: 1200px) {
+					width: 40%;
+					padding-bottom: 40%;
+				}
+			}
+
+			&:nth-child(8n),
+			&:nth-child(13n) {
+				width: 100%;
+
+				@media only screen and (min-width: 481px) {
+					width: 100%;
+					padding-bottom: 50%;
+				}
+
+				@media only screen and (min-width: 768px) {
+					width: 33.333%;
+					padding-bottom: 33.333%;
+				}
+
+				@media only screen and (min-width: 1024px) {
+					width: 50%;
+					padding-bottom: 25%;
+				}
+
+				@media only screen and (min-width: 1200px) {
+					width: 40%;
+					padding-bottom: 20%;
+				}
+			}
+		}
+	}
+
+	&.masonry-grid3 {
+		.portfolio-box {
+			&:nth-child(3),
+			&:nth-child(8n),
+			&:nth-child(11n),
+			&:nth-child(14n) {
+				width: 100%;
+
+				@media only screen and (min-width: 481px) {
+					width: 100%;
+					padding-bottom: 50%;
+				}
+
+				@media only screen and (min-width: 768px) {
+					width: 33.333%;
+					padding-bottom: 33.333%;
+				}
+
+				@media only screen and (min-width: 1024px) {
+					width: 50%;
+					padding-bottom: 25%;
+				}
+
+				@media only screen and (min-width: 1200px) {
+					width: 40%;
+					padding-bottom: 20%;
+				}
+			}
+		}
+	}
+
 	.portfolio-box {
+	    clear: none;
 		float: left;
 		margin: 0;
+		overflow: hidden;
+		height: 0;
 		padding-left: 0;
 		padding-right: 0;
+		padding-top: 0;
 		padding-bottom: 100%;
 		position: relative;
-		transition: opacity .3s ease;
+		transition: all .3s ease;
 		width: 100%;
 
 		@media only screen and (min-width: 481px) {
@@ -61,7 +207,7 @@
 			padding-bottom: 50%;
 		}
 
-		@media only screen and (min-width: 767px) {
+		@media only screen and (min-width: 768px) {
 			width: 33.333%;
 			padding-bottom: 33.333%;
 		}
@@ -76,52 +222,11 @@
 			padding-bottom: 20%;
 		}
 
-		&.width2 {
-			width: 100%;
-
-			@media only screen and (min-width: 30.063em) {
-				width: 100%;
-				padding-bottom: 50%;
-			}
-
-			@media only screen and (min-width: 56.3125em) {
-				width: 66.6666666666%;
-				padding-bottom: 33.3333333333%;
-			}
-
-			@media only screen and (min-width: 80em) {
-				width: 50%;
-				padding-bottom: 25%;
-			}
-
-			@media only screen and (min-width: 100.063em) {
-				width: 40%;
-				padding-bottom: 20%;
-			}
-		}
-
-		&.width2.height2 {
-			width: 100%;
-
-			@media only screen and (min-width: 30.063em) {
-				width: 100%;
-				padding-bottom: 100%;
-			}
-
-			@media only screen and (min-width: 56.3125em) {
-				width: 66.6666666666%;
-				padding-bottom: 66.6666666666%;
-			}
-
-			@media only screen and (min-width: 80em) {
-				width: 50%;
-				padding-bottom: 50%;
-			}
-
-			@media only screen and (min-width: 100.063em) {
-				width: 40%;
-				padding-bottom: 40%;
-			}
+		&.hidden {
+			opacity: 0;
+			visibility: hidden;
+			width: 0;
+			padding-bottom: 0;
 		}
 
 		.portfolio-box-link {

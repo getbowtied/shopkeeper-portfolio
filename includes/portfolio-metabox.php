@@ -1,6 +1,8 @@
 <?php
 /**
  * Portfolio custom metaboxes.
+ *
+ * @package shopkeeper-portfolio
  */
 
 add_action( 'add_meta_boxes', 'shopkeeper_portfolio_add_options_metabox' );
