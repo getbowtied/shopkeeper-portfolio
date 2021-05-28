@@ -291,14 +291,6 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
                 'v3.0.6',
                 true
             );
-
-            wp_enqueue_script(
-                'imagesloaded',
-                plugins_url( 'assets/js/vendor/imagesloaded.min.js', __FILE__ ),
-                array('jquery'),
-                '3.1.4',
-                true
-            );
         }
 
         /**

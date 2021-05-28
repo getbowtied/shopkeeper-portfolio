@@ -46,27 +46,12 @@ jQuery( function ($) {
 	}
 
 	function isotope_init() {
-		var imgLoad = imagesLoaded($('.portfolio-isotope'));
-
-		imgLoad.on('done',function(){
-
-			$portfolio_wrapper_inner = $('.portfolio-isotope').isotope({
-				"itemSelector": ".portfolio-box",
-				"masonry": { "columnWidth": ".portfolio-grid-sizer" }
-			});
-
-			after_isotope_init();
-		})
-
-		imgLoad.on('fail',function(){
-
-			portfolio_wrapper_inner = $('.portfolio-isotope').isotope({
-				"itemSelector": ".portfolio-box",
-				"masonry": { "columnWidth": ".portfolio-grid-sizer" }
-			});
-
-			after_isotope_init();
+		$portfolio_wrapper_inner = $('.portfolio-isotope').isotope({
+			"itemSelector": ".portfolio-box",
+			"masonry": { "columnWidth": ".portfolio-grid-sizer" }
 		});
+
+		after_isotope_init();
 	}
 
 	//portfolio isotope - hover effect

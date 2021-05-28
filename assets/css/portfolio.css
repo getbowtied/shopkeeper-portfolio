@@ -1,1 +1,164 @@
-.portfolio-filters{margin-bottom:2.5rem}.portfolio-isotope{position:relative}.portfolio-isotope:after{content:'';display:block;clear:both}.portfolio-grid-sizer{width:100%}@media only screen and (min-width:30.063em){.portfolio-grid-sizer{width:50%}}@media only screen and (min-width:56.3125em){.portfolio-grid-sizer{width:33.3333333333%}}@media only screen and (min-width:80em){.portfolio-grid-sizer{width:25%}}@media only screen and (min-width:100.063em){.portfolio-grid-sizer{width:20%}}.portfolio-box{width:100%;float:left;margin:0;opacity:1;padding-left:0;padding-right:0;padding-bottom:100%;-webkit-transition:opacity 0.3s;-o-transition:opacity 0.3s;transition:opacity 0.3s}@media only screen and (min-width:30.063em){.portfolio-box{width:50%;padding-bottom:50%}}@media only screen and (min-width:56.3125em){.portfolio-box{width:33.3333333333%;padding-bottom:33.3333333333%}}@media only screen and (min-width:80em){.portfolio-box{width:25%;padding-bottom:25%}}@media only screen and (min-width:100.063em){.portfolio-box{width:20%;padding-bottom:20%}}.portfolio-box.hidden{opacity:0}.portfolio-box.width2{width:100%}@media only screen and (min-width:30.063em){.portfolio-box.width2{width:100%;padding-bottom:50%}}@media only screen and (min-width:56.3125em){.portfolio-box.width2{width:66.6666666666%;padding-bottom:33.3333333333%}}@media only screen and (min-width:80em){.portfolio-box.width2{width:50%;padding-bottom:25%}}@media only screen and (min-width:100.063em){.portfolio-box.width2{width:40%;padding-bottom:20%}}.portfolio-box.width2.height2{width:100%}@media only screen and (min-width:30.063em){.portfolio-box.width2.height2{width:100%;padding-bottom:100%}}@media only screen and (min-width:56.3125em){.portfolio-box.width2.height2{width:66.6666666666%;padding-bottom:66.6666666666%}}@media only screen and (min-width:80em){.portfolio-box.width2.height2{width:50%;padding-bottom:50%}}@media only screen and (min-width:100.063em){.portfolio-box.width2.height2{width:40%;padding-bottom:40%}}.portfolio-box .portfolio-box-inner{background-color:var(--global--text-color);cursor:pointer;display:block;overflow:hidden;margin:0;width:100%;height:100%;position:absolute;text-align:center;z-index:1}.portfolio-box .portfolio-box-inner .hover-effect-thumb{display:block;opacity:1;background-size:cover;background-position:center;background-repeat:no-repeat;width:calc(100% + 60px);max-width:none;min-height:100.6%;position:absolute;-webkit-transition:opacity 0.35s, -webkit-transform 0.35s;transition:opacity 0.35s, -webkit-transform 0.35s;-o-transition:opacity 0.35s, transform 0.35s;transition:opacity 0.35s, transform 0.35s;transition:opacity 0.35s, transform 0.35s, -webkit-transform 0.35s;-webkit-transform:translate3d(-30px, 0, 0);transform:translate3d(-30px, 0, 0)}.portfolio-box .portfolio-box-inner .hover-effect-content .hover-effect-text{color:#fff;opacity:0;font-size:13px;font-weight:900;text-transform:uppercase;margin:0;position:absolute;bottom:0;padding:0 2.5rem 2.5rem;text-align:left;-webkit-transition:all .45s;-o-transition:all .45s;transition:all .45s}.portfolio-box .portfolio-box-inner .hover-effect-content .hover-effect-title{color:#fff;font-size:calc( 1.333 * var(--global--headings-font-size));font-weight:bold;line-height:1.2;margin:0;position:absolute;bottom:28px;left:0;right:auto;padding:2.5rem 2.5rem 5px;-webkit-transform:none;-ms-transform:none;transform:none;text-align:left;-webkit-transition:all .3s;-o-transition:all .3s;transition:all .3s}.portfolio-box .portfolio-box-inner .hover-effect-content:hover .hover-effect-text{opacity:1;-webkit-transition-delay:0.05s;-o-transition-delay:0.05s;transition-delay:0.05s}.portfolio-box .portfolio-box-inner .hover-effect-content:hover .hover-effect-thumb{opacity:0.15;-webkit-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0)}.default_grid.items_per_row_3{}@media only screen and (min-width:80em){.default_grid.items_per_row_3 .portfolio-grid-sizer{width:33.3333333333%}.default_grid.items_per_row_3 .portfolio-box{padding-bottom:33.33333333333%;width:33.3333333333%}}.default_grid.items_per_row_4{}@media only screen and (min-width:100.063em){.default_grid.items_per_row_4 .portfolio-grid-sizer{width:25%}.default_grid.items_per_row_4 .portfolio-box{padding-bottom:25%;width:25%}}
+.tax-portfolio_categories .portfolio-category-header {
+  margin-bottom: 2.5rem;
+  position: relative; }
+  @media all and (min-width: 1024px) {
+    .tax-portfolio_categories .portfolio-category-header {
+      margin-bottom: 5rem; } }
+
+.tax-portfolio_categories .portfolio-category-title {
+  margin: 0 0 1.25rem; }
+
+.tax-portfolio_categories .term-description,
+.tax-portfolio_categories .not-found-text {
+  text-align: center; }
+
+.portfolio-items-grid {
+  display: block;
+  overflow: hidden; }
+  @media only screen and (min-width: 1024px) {
+    .portfolio-items-grid.columns-3 .portfolio-box {
+      width: 33.333%;
+      padding-bottom: 33.333%; } }
+  @media only screen and (min-width: 1200px) {
+    .portfolio-items-grid.columns-3 .portfolio-box {
+      width: 33.333%;
+      padding-bottom: 33.333%; } }
+  @media only screen and (min-width: 1200px) {
+    .portfolio-items-grid.columns-4 .portfolio-box {
+      width: 25%;
+      padding-bottom: 25%; } }
+  .portfolio-items-grid .portfolio-box {
+    float: left;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 100%;
+    position: relative;
+    -webkit-transition: opacity .3s ease;
+    -o-transition: opacity .3s ease;
+    transition: opacity .3s ease;
+    width: 100%; }
+    @media only screen and (min-width: 481px) {
+      .portfolio-items-grid .portfolio-box {
+        width: 50%;
+        padding-bottom: 50%; } }
+    @media only screen and (min-width: 767px) {
+      .portfolio-items-grid .portfolio-box {
+        width: 33.333%;
+        padding-bottom: 33.333%; } }
+    @media only screen and (min-width: 1024px) {
+      .portfolio-items-grid .portfolio-box {
+        width: 25%;
+        padding-bottom: 25%; } }
+    @media only screen and (min-width: 1200px) {
+      .portfolio-items-grid .portfolio-box {
+        width: 20%;
+        padding-bottom: 20%; } }
+    .portfolio-items-grid .portfolio-box.width2 {
+      width: 100%; }
+      @media only screen and (min-width: 30.063em) {
+        .portfolio-items-grid .portfolio-box.width2 {
+          width: 100%;
+          padding-bottom: 50%; } }
+      @media only screen and (min-width: 56.3125em) {
+        .portfolio-items-grid .portfolio-box.width2 {
+          width: 66.6666666666%;
+          padding-bottom: 33.3333333333%; } }
+      @media only screen and (min-width: 80em) {
+        .portfolio-items-grid .portfolio-box.width2 {
+          width: 50%;
+          padding-bottom: 25%; } }
+      @media only screen and (min-width: 100.063em) {
+        .portfolio-items-grid .portfolio-box.width2 {
+          width: 40%;
+          padding-bottom: 20%; } }
+    .portfolio-items-grid .portfolio-box.width2.height2 {
+      width: 100%; }
+      @media only screen and (min-width: 30.063em) {
+        .portfolio-items-grid .portfolio-box.width2.height2 {
+          width: 100%;
+          padding-bottom: 100%; } }
+      @media only screen and (min-width: 56.3125em) {
+        .portfolio-items-grid .portfolio-box.width2.height2 {
+          width: 66.6666666666%;
+          padding-bottom: 66.6666666666%; } }
+      @media only screen and (min-width: 80em) {
+        .portfolio-items-grid .portfolio-box.width2.height2 {
+          width: 50%;
+          padding-bottom: 50%; } }
+      @media only screen and (min-width: 100.063em) {
+        .portfolio-items-grid .portfolio-box.width2.height2 {
+          width: 40%;
+          padding-bottom: 40%; } }
+    .portfolio-items-grid .portfolio-box .portfolio-box-link {
+      cursor: pointer;
+      display: block;
+      overflow: hidden;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      text-align: center;
+      z-index: 1; }
+      .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content {
+        display: block;
+        height: 100%;
+        width: 100%; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content img {
+          display: block;
+          -o-object-fit: cover;
+          object-fit: cover;
+          -o-object-position: center;
+          object-position: center;
+          height: 100%;
+          width: 100%;
+          -webkit-transition: all .3s ease;
+          -o-transition: all .3s ease;
+          transition: all .3s ease; }
+          .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content img:hover {
+            opacity: 1; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content .portfolio-item-title {
+          color: #ffffff;
+          font-size: calc( 1.333 * var(--global--headings-font-size));
+          font-weight: bold;
+          line-height: 1.2;
+          margin: 0;
+          position: absolute;
+          bottom: 28px;
+          left: 0;
+          right: auto;
+          padding: 2.5rem 2.5rem 5px;
+          -webkit-transform: none;
+          -ms-transform: none;
+          transform: none;
+          text-align: left;
+          -webkit-transition: all .3s;
+          -o-transition: all .3s;
+          transition: all .3s; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content .portfolio-item-categories {
+          color: #ffffff;
+          opacity: 0;
+          font-size: 13px;
+          font-weight: 900;
+          text-transform: uppercase;
+          margin: 0;
+          position: absolute;
+          bottom: -30px;
+          padding: 0 2.5rem 2.5rem;
+          text-align: left;
+          -webkit-transition: all .45s;
+          -o-transition: all .45s;
+          transition: all .45s; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content:hover img {
+          opacity: .25; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content:hover .portfolio-item-title {
+          bottom: 60px; }
+        .portfolio-items-grid .portfolio-box .portfolio-box-link .portfolio-box-content:hover .portfolio-item-categories {
+          bottom: 0;
+          opacity: 1;
+          -webkit-transition-delay: 0.05s;
+          -o-transition-delay: 0.05s;
+          transition-delay: 0.05s; }
+
+.portfolio-filters {
+  margin-bottom: 2.5rem; }
