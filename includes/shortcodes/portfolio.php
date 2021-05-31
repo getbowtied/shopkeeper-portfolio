@@ -45,40 +45,39 @@ function shopkeeper_portfolio_shortcode( $atts ) {
 	);
 
 	if ( $portfolio_items->have_posts() ) {
+
+		if ( empty( $category ) && ( 'yes' === $show_filters ) ) {
+			$categories_list = array();
+
+			while ( $portfolio_items->have_posts() ) {
+				$portfolio_items->the_post();
+				$terms = get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
+				if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+					foreach ( $terms as $term ) {
+						$categories_list[ $term->slug ] = $term->name;
+					}
+				}
+			}
+
+			$categories_list = array_unique( $categories_list );
+
+			if ( ! empty( $categories_list ) && is_array( $categories_list ) && ! is_wp_error( $categories_list ) ) {
+				?>
+				<div class="portfolio-filters list_categories_wrapper">
+					<ul class="filters-group list_categories list-centered">
+						<li class="filter-item is-checked" data-filter="*"><span><?php esc_html_e( 'Show all', 'shopkeeper-portfolio' ); ?></span></li>
+						<?php foreach ( $categories_list as $key => $value ) { ?>
+							<li class="filter-item" data-filter="<?php echo esc_attr( $key ); ?>"><span><?php echo esc_html( $value ); ?></span></li>
+						<?php } ?>
+					</ul>
+				</div>
+				<?php
+			}
+		}
 		?>
 
 		<div class="portfolio-items-grid <?php echo esc_html( $columns_class ); ?>">
 			<?php
-
-			if ( empty( $category ) && ( 'yes' === $show_filters ) ) {
-				$categories_list = array();
-
-				while ( $portfolio_items->have_posts() ) {
-					$portfolio_items->the_post();
-					$terms = get_the_terms( get_the_ID(), 'portfolio_categories' ); // get an array of all the terms as objects.
-					if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
-						foreach ( $terms as $term ) {
-							$categories_list[ $term->slug ] = $term->name;
-						}
-					}
-				}
-
-				$categories_list = array_unique( $categories_list );
-
-				if ( ! empty( $categories_list ) && is_array( $categories_list ) && ! is_wp_error( $categories_list ) ) {
-					?>
-					<div class="portfolio-filters list_categories_wrapper">
-						<ul class="filters-group list_categories list-centered">
-							<li class="filter-item is-checked" data-filter="*"><span><?php esc_html_e( 'Show all', 'shopkeeper-portfolio' ); ?></span></li>
-							<?php foreach ( $categories_list as $key => $value ) { ?>
-								<li class="filter-item" data-filter="<?php echo esc_attr( $key ); ?>"><span><?php echo esc_html( $value ); ?></span></li>
-							<?php } ?>
-						</ul>
-					</div>
-					<?php
-				}
-			}
-
 			while ( $portfolio_items->have_posts() ) {
 				$portfolio_items->the_post();
 
