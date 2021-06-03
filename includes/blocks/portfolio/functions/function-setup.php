@@ -11,28 +11,22 @@ if ( ! function_exists( 'gbt_18_sk_portfolio_editor_assets' ) ) {
 			plugins_url( 'block.js', dirname(__FILE__) ),
 			array( 'wp-blocks', 'wp-components', 'wp-editor', 'wp-i18n', 'wp-element' )
 		);
-
-		wp_register_style(
-			'gbt_18_sk_portfolio_editor_styles',
-			plugins_url( 'assets/css/editor.css', dirname(__FILE__) ),
-			array( 'wp-edit-blocks' )
-		);
 	}
 }
 
 //	Register Block Type.
 if ( function_exists( 'register_block_type' ) ) {
     register_block_type( 'getbowtied/sk-portfolio', array(
-        'editor_style'      => 'gbt_18_sk_portfolio_editor_styles',
+        'editor_style'      => 'shopkeeper_portfolio_editor_styles',
         'editor_script'     => 'gbt_18_sk_portfolio_script',
         'attributes'      => array(
             'number'                        => array(
                 'type'                      => 'integer',
                 'default'                   => 12,
             ),
-            'categoriesSavedIDs'            => array(
-                'type'                      => 'string',
-                'default'                   => '',
+            'categoriesIDs'            		=> array(
+                'type'                      => 'array',
+                'default'                   => array(),
             ),
             'showFilters'                   => array(
                 'type'                      => 'boolean',

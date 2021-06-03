@@ -99,7 +99,7 @@ function shopkeeper_portfolio_shortcode( $atts ) {
 
 							<?php echo wp_get_attachment_image( get_post_thumbnail_id( get_the_ID() ), 'large' ); ?>
 
-							<h2 class="portfolio-item-title"><?php the_title(); ?></h2>
+							<h4 class="portfolio-item-title"><?php the_title(); ?></h4>
 							<p class="portfolio-item-categories"><?php echo esc_html( wp_strip_all_tags( get_the_term_list( get_the_ID(), 'portfolio_categories', '', ', ' ) ) ); ?></p>
 
 						</span>

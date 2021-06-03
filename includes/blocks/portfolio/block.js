@@ -19,6 +19,10 @@
 		InspectorControls,
 	} = wp.blockEditor;
 
+	const {
+		ServerSideRender,
+	} = wp.editor;
+
 	const apiFetch = wp.apiFetch;
 
 	/* Register Block */
@@ -39,32 +43,10 @@
 			{ name: 'masonry_3', label:  i18n.__( 'Masonry Style V3', 'shopkeeper-portfolio' ) },
 		],
 		attributes: {
-			/* Products source */
-			result: {
-				type: 'array',
-				default: [],
-			},
-			queryItems: {
-				type: 'string',
-				default: '',
-			},
-			queryItemsLast: {
-				type: 'string',
-				default: '',
-			},
-			/* loader */
-			isLoading: {
-				type: 'bool',
-				default: false,
-			},
 			/* Display by category */
 			categoriesIDs: {
-				type: 'string',
-				default: ',',
-			},
-			categoriesSavedIDs: {
-				type: 'string',
-				default: '',
+				type: 'array',
+				default: [],
 			},
 			/* First Load */
 			firstLoad: {
@@ -98,89 +80,13 @@
 			let attributes = props.attributes;
 			let className  = props.className;
 
-			attributes.doneFirstLoad 		= attributes.doneFirstLoad || false;
 			attributes.categoryOptions 		= attributes.categoryOptions || [];
-			attributes.doneFirstItemsLoad 	= attributes.doneFirstItemsLoad || false;
-			attributes.result 				= attributes.result || [];
 
 			if( className.indexOf('is-style-') == -1 ) { className += ' is-style-default'; }
 
 			//==============================================================================
 			//	Helper functions
 			//==============================================================================
-
-			function _buildQuery( arr, nr, order ) {
-				let query = '/wp/v2/portfolio-item?per_page=' + nr;
-
-				if( arr.substr(0,1) == ',' ) {
-					arr = arr.substr(1);
-				}
-				if( arr.substr(arr.length - 1) == ',' ) {
-					arr = arr.substring(0, arr.length - 1);
-				}
-
-				if( arr != ',' && arr != '' ) {
-					query = '/wp/v2/portfolio-item?portfolio-category=' + arr + '&per_page=' + nr;
-				}
-
-				switch (order) {
-					case 'date_asc':
-						query += '&orderby=date&order=asc';
-						break;
-					case 'date_desc':
-						query += '&orderby=date&order=desc';
-						break;
-					case 'title_asc':
-						query += '&orderby=title&order=asc';
-						break;
-					case 'title_desc':
-						query += '&orderby=title&order=desc';
-						break;
-					default:
-						break;
-				}
-
-				return query;
-			}
-
-			function _verifyCatIDs( optionsIDs ) {
-
-				let catArr = attributes.categoriesIDs;
-				let categoriesIDs = attributes.categoriesIDs;
-
-				if( catArr.substr(0,1) == ',' ) {
-					catArr = catArr.substr(1);
-				}
-				if( catArr.substr(catArr.length - 1) == ',' ) {
-					catArr = catArr.substring(0, catArr.length - 1);
-				}
-
-				if( catArr != ',' && catArr != '' ) {
-
-					let newCatArr = catArr.split(',');
-					let newArr = [];
-					for (let i = 0; i < newCatArr.length; i++) {
-						if( optionsIDs.indexOf(newCatArr[i]) == -1 ) {
-							categoriesIDs = categoriesIDs.replace(',' + newCatArr[i].toString() + ',', ',');
-						}
-					}
-				}
-
-				if( attributes.categoriesIDs != categoriesIDs ) {
-					props.setAttributes({ queryItems: _buildQuery(categoriesIDs, attributes.number, attributes.orderby) });
-					props.setAttributes({ queryItemsLast: _buildQuery(categoriesIDs, attributes.number, attributes.orderby) });
-				}
-
-				props.setAttributes({ categoriesIDs: categoriesIDs });
-				props.setAttributes({ categoriesSavedIDs: categoriesIDs });
-			}
-
-			function getWrapperClass() {
-				if( className.indexOf('is-style-default') >= 0 ) {
-					return 'gbt_18_sk_editor_portfolio_wrapper items_per_row_' + attributes.columns;
-				}
-				return 'gbt_18_sk_editor_portfolio_wrapper';
-			}
 
 			function _sortCategories( index, arr, newarr = [], level = 0) {
 				for ( let i = 0; i < arr.length; i++ ) {
@@ -195,7 +101,8 @@
 			}
 
 			function _isChecked( needle, haystack ) {
-				let idx = haystack.indexOf(needle.toString());
+
+				let idx = haystack.indexOf(needle);
 				if ( idx != - 1) {
 					return true;
 				}
@@ -208,126 +115,6 @@
 				} else {
 					return 'child child-' + parent;
 				}
-			}
-
-			function _isLoadingText(){
-				if ( attributes.isLoading  === false ) {
-					return i18n.__( 'Update', 'shopkeeper-portfolio' );
-				} else {
-					return i18n.__( 'Updating', 'shopkeeper-portfolio' );
-				}
-			}
-
-			function _isDonePossible() {
-				return ( (attributes.queryItems.length == 0) || (attributes.queryItems === attributes.queryItemsLast) );
-			}
-
-			function _isLoading() {
-				if ( attributes.isLoading  === true ) {
-					return 'is-busy';
-				} else {
-					return '';
-				}
-			}
-
-			//==============================================================================
-			//	Show portfolio items functions
-			//==============================================================================
-
-			function getPortfolioItems() {
-				let query = attributes.queryItems;
-				props.setAttributes({ queryItemsLast: query});
-
-				if (query != '') {
-					apiFetch({ path: query }).then(function (items) {
-						props.setAttributes({ result: items});
-						props.setAttributes({ isLoading: false});
-						props.setAttributes({ doneFirstItemsLoad: true});
-					});
-				}
-			}
-
-			function renderResults() {
-				if ( attributes.firstLoad === true ) {
-					apiFetch({ path: '/wp/v2/portfolio-item?per_page=12&orderby=date&order=desc' }).then(function (portfolio_items) {
-						props.setAttributes({ result: portfolio_items });
-						props.setAttributes({ firstLoad: false });
-						let query = '/wp/v2/portfolio-item?per_page=12&orderby=date&order=desc';
-						props.setAttributes({queryItems: query});
-						props.setAttributes({ queryItemsLast: query});
-					});
-				}
-
-				let portfolio_items = attributes.result;
-				let postElements = [];
-				let wrapper = [];
-
-				if( portfolio_items.length > 0) {
-
-					for ( let i = 0; i < portfolio_items.length; i++ ) {
-
-						let portfolio_image = [];
-						if ( portfolio_items[i]['fimg_url'] ) {
-							portfolio_image.push(
-								el( 'span',
-									{
-										key: 		'gbt_18_sk_editor_portfolio_item_thumbnail',
-										className: 	'gbt_18_sk_editor_portfolio_item_thumbnail',
-										style:
-										{
-											backgroundImage: 'url(' + portfolio_items[i]['fimg_url'] + ')'
-										}
-									}
-								)
-							);
-						};
-
-						postElements.push(
-							el( "div",
-								{
-									key: 		'gbt_18_sk_editor_portfolio_item_box_' + portfolio_items[i].id,
-									className: 	'gbt_18_sk_editor_portfolio_item_box'
-								},
-								el( 'a',
-									{
-										key: 		'gbt_18_sk_editor_portfolio_item_link_' + i,
-										className: 	'gbt_18_sk_editor_portfolio_item_link',
-										style:
-										{
-											backgroundColor: portfolio_items[i]['color_meta_box']
-										}
-									},
-									el( "div",
-										{
-											key: 		'gbt_18_sk_editor_portfolio_item_content_' + i,
-											className: 	'gbt_18_sk_editor_portfolio_item_content'
-										},
-										portfolio_image,
-										el( 'h2',
-											{
-												key: 'gbt_18_sk_editor_portfolio_item_title_' + i,
-												className: 'gbt_18_sk_editor_portfolio_item_title',
-												dangerouslySetInnerHTML: { __html: portfolio_items[i]['title']['rendered'] }
-											}
-										),
-									)
-								)
-							)
-						);
-					}
-				}
-
-				wrapper.push(
-					el( 'div',
-						{
-							key: 		'gbt_18_sk_editor_portfolio_items',
-							className: 	'gbt_18_sk_editor_portfolio_items'
-						},
-						postElements
-					)
-				);
-
-				return wrapper;
 			}
 
 			//==============================================================================
@@ -349,9 +136,19 @@
 				 	}
 
 				 	sorted = _sortCategories(0, options);
+
 		        	props.setAttributes({categoryOptions: sorted });
-		        	_verifyCatIDs(optionsIDs);
-	        		props.setAttributes({ doneFirstLoad: true});
+
+					if( attributes.firstLoad && attributes.categoriesIDs.length === 0 ) {
+						if ( sorted.length > 0 ) {
+							for ( let i = 0; i < sorted.length; i++ ) {
+								categories_list[i] = sorted[i].value;
+							}
+						}
+			        	props.setAttributes({categoriesIDs: categories_list });
+						props.setAttributes({firstLoad: false });
+
+					}
 				});
 			}
 
@@ -384,21 +181,24 @@
 											value: catArr[i].value,
 											'data-index': i,
 											'data-parent': catArr[i].parent,
-											checked: _isChecked(','+catArr[i].value+',', attributes.categoriesIDs),
+											checked: attributes.categoriesIDs.indexOf(catArr[i].value) > -1, // _isChecked(catArr[i].value, attributes.categoriesIDs),
 											onChange: function onChange(evt){
 												let newCategoriesSelected = attributes.categoriesIDs;
-												let index = newCategoriesSelected.indexOf(',' + evt.target.value + ',');
+												let checkbox_value = parseInt(evt.target.value);
+												let index = newCategoriesSelected.indexOf(checkbox_value);
 												if (evt.target.checked === true) {
 													if (index == -1) {
-														newCategoriesSelected += evt.target.value + ',';
+														newCategoriesSelected.push(checkbox_value);
 													}
 												} else {
 													if (index > -1) {
-														newCategoriesSelected = newCategoriesSelected.replace(',' + evt.target.value + ',', ',');
+														newCategoriesSelected = newCategoriesSelected.filter(function(item) {
+    														return item !== checkbox_value;
+														});
 													}
 												}
+												console.log(newCategoriesSelected);
 												props.setAttributes({ categoriesIDs: newCategoriesSelected });
-												props.setAttributes({ queryItems: _buildQuery(newCategoriesSelected, attributes.number, attributes.orderby) });
 											},
 										},
 									),
@@ -439,7 +239,7 @@
 							{
 								className: 'category-result-wrapper',
 							},
-							attributes.categoryOptions.length < 1 && attributes.doneFirstLoad === false && getCategories(),
+							attributes.categoryOptions.length < 1 && getCategories(),
 							renderCategories(),
 						),
 						el(
@@ -457,8 +257,6 @@
 	              				value: attributes.orderby,
 	              				onChange: function( value ) {
 	              					props.setAttributes( { orderby: value } );
-	              					let newCategoriesSelected = attributes.categoriesIDs;
-									props.setAttributes({ queryItems: _buildQuery(newCategoriesSelected, attributes.number, value) });
 								},
 							}
 						),
@@ -475,25 +273,9 @@
 								label: i18n.__( 'Number of Portfolio Items', 'shopkeeper-portfolio' ),
 								onChange: function onChange(newNumber){
 									props.setAttributes( { number: newNumber } );
-									let newCategoriesSelected = attributes.categoriesIDs;
-									props.setAttributes({ queryItems: _buildQuery(newCategoriesSelected, newNumber, attributes.orderby) });
 								},
 							}
 						),
-						el(
-							'button',
-							{
-								className: 'render-results components-button is-button is-default is-primary is-large ' + _isLoading(),
-								disabled: _isDonePossible(),
-								onClick: function onChange(e) {
-									props.setAttributes({ isLoading: true });
-									props.setAttributes({ categoriesSavedIDs: attributes.categoriesIDs });
-									getPortfolioItems();
-								},
-							},
-							_isLoadingText(),
-						),
-						el( 'hr', {} ),
 						el(
 							ToggleControl,
 							{
@@ -522,20 +304,21 @@
 						),
 					),
 				),
-				el( 'div',
+				el(
+					ServerSideRender,
 					{
-						key: 		'gbt_18_sk_editor_portfolio',
-						className: 	'gbt_18_sk_editor_portfolio ' + className
-					},
-					el( 'div',
-						{
-							key: 		'gbt_18_sk_editor_portfolio_wrapper',
-							className: 	getWrapperClass(),
-						},
-						attributes.result.length < 1 && attributes.doneFirstItemsLoad === false && getPortfolioItems(),
-						renderResults()
-					),
-				)
+						key: 'gbt_18_sk_portfolio-render',
+						block: 'getbowtied/sk-portfolio',
+						attributes: {
+							number: attributes.number,
+							categoriesIDs: attributes.categoriesIDs,
+							showFilters: attributes.showFilters,
+							columns: attributes.columns,
+							orderby: attributes.orderby,
+							className: className
+						}
+					}
+				),
 			];
 		},
 

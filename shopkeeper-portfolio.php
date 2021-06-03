@@ -65,7 +65,8 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
             add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ), 300 );
 
             if ( is_admin() ) {
-                add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+                add_action( 'enqueue_block_editor_assets', array( $this, 'register_admin_styles' ) );
+                add_action( 'enqueue_block_editor_assets', array( $this, 'register_scripts' ) );
             }
 
             add_filter( 'single_template', array( $this, 'get_portfolio_single_template' ), 99 );
@@ -273,6 +274,17 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
         }
 
         /**
+        * Registers portfolio admin styles
+        */
+        public static function register_admin_styles() {
+            wp_register_style(
+                'shopkeeper_portfolio_editor_styles',
+                plugins_url( 'assets/css/portfolio.css', __FILE__ ),
+                array( 'wp-edit-blocks' )
+            );
+        }
+
+        /**
         * Enqueues portfolio scripts
         */
         public static function register_scripts() {
@@ -282,18 +294,6 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
                 array('jquery'),
                 false,
                 true
-            );
-        }
-
-        /**
-        * Enqueues portfolio admin scripts
-        */
-        public static function register_admin_scripts() {
-            wp_enqueue_script(
-                'shopkeeper-portfolio-admin-scripts',
-                plugins_url( 'assets/js/wp-admin-portfolio.js', __FILE__ ),
-                array('wp-color-picker'),
-                false
             );
         }
 
