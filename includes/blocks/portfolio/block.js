@@ -311,6 +311,7 @@
 						block: 'getbowtied/sk-portfolio',
 						attributes: {
 							number: attributes.number,
+							firstLoad: attributes.firstLoad,
 							categoriesIDs: attributes.categoriesIDs,
 							showFilters: attributes.showFilters,
 							columns: attributes.columns,

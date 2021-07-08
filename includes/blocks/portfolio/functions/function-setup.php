@@ -24,6 +24,10 @@ if ( function_exists( 'register_block_type' ) ) {
                 'type'                      => 'integer',
                 'default'                   => 12,
             ),
+			'firstLoad'                     => array(
+                'type'                      => 'boolean',
+                'default'                   => true,
+            ),
             'categoriesIDs'            		=> array(
                 'type'                      => 'array',
                 'default'                   => array(),
