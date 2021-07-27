@@ -176,6 +176,10 @@
 					text-align: left;
 					transition: all .45s;
 					width: 100%;
+
+					.rtl & {
+						text-align: right;
+					}
 				}
 
 				.portfolio-item-categories {
@@ -227,7 +231,13 @@
 		li {
 			display: inline-block;
 			margin-right: 1.25rem;
+			margin-left: 0;
 			margin-bottom: 0;
+
+			.rtl & {
+				margin-left: 1.25rem;
+				margin-right: 0;
+			}
 
 			> a, > span {
 				background: none;
