@@ -4,7 +4,7 @@
 * Plugin Name:       		Shopkeeper Portfolio Addon
 * Plugin URI:        		https://shopkeeper.wp-theme.design/
 * Description:       		Extends the functionality of your WordPress site by adding a 'Portfolio' custom post type allowing you to organize and showcase you your work or products.
-* Version:           		1.3.5
+* Version:           		2.0
 * Author:            		GetBowtied
 * Author URI:				https://getbowtied.com
 * Text Domain:				shopkeeper-portfolio
