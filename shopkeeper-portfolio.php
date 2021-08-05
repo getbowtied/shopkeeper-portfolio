@@ -71,6 +71,7 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 				add_action( 'enqueue_block_editor_assets', array( $this, 'register_scripts' ) );
 			}
 
+			add_filter( 'archive_template', array( $this, 'get_portfolio_archive_template' ), 99 );
 			add_filter( 'single_template', array( $this, 'get_portfolio_single_template' ), 99 );
 			add_filter( 'taxonomy_template', array( $this, 'get_portfolio_taxonomy_template' ), 99 );
 
@@ -344,6 +345,24 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 			if ( 'portfolio' === $post->post_type ) {
 				if ( file_exists( plugin_dir_path( __FILE__ ) . '/templates/single-portfolio.php' ) ) {
 					return plugin_dir_path( __FILE__ ) . '/templates/single-portfolio.php';
+				}
+			}
+
+			return $template;
+		}
+
+		/**
+		 * Returns portfolio template.
+		 *
+		 * @param string $template Template path.
+		 * @return string Template path.
+		 */
+		public static function get_portfolio_archive_template( $template ) {
+			global $post;
+
+			if ( 'portfolio' === $post->post_type ) {
+				if ( file_exists( plugin_dir_path( __FILE__ ) . '/templates/archive-portfolio.php' ) ) {
+					return plugin_dir_path( __FILE__ ) . '/templates/archive-portfolio.php';
 				}
 			}
 
