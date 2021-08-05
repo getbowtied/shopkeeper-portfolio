@@ -360,6 +360,10 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 		public static function get_portfolio_archive_template( $template ) {
 			global $post;
 
+			if( ! isset( $post ) ) {
+				return;
+			}
+
 			if ( 'portfolio' === $post->post_type ) {
 				if ( file_exists( plugin_dir_path( __FILE__ ) . '/templates/archive-portfolio.php' ) ) {
 					return plugin_dir_path( __FILE__ ) . '/templates/archive-portfolio.php';
