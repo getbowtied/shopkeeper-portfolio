@@ -13,40 +13,39 @@ add_shortcode( 'portfolio', 'shopkeeper_portfolio_shortcode' );
  * @return string Shortcode output.
  */
 function shopkeeper_portfolio_shortcode( $atts ) {
-	extract(
-		shortcode_atts(
-			array(
-				'items'                   => '9999',
-				'category'                => '',
-				'show_filters'            => 'yes',
-				'order_by'                => 'date',
-				'order'                   => 'desc',
-				'grid'                    => 'default',
-				'portfolio_items_per_row' => '3',
-			),
-			$atts
-		)
+
+	$attributes = shortcode_atts(
+		array(
+			'items'                   => '9999',
+			'category'                => '',
+			'show_filters'            => 'yes',
+			'order_by'                => 'date',
+			'order'                   => 'desc',
+			'grid'                    => 'default',
+			'portfolio_items_per_row' => '3',
+		),
+		$atts
 	);
 
 	ob_start();
 
-	$columns_class = ( 'default' === $grid ) ? 'default-grid columns-' . $portfolio_items_per_row : 'masonry-' . $grid;
-	$order_by      = ( 'alphabetical' === $order_by ) ? 'title' : $order_by;
+	$columns_class          = ( 'default' === $attributes['grid'] ) ? 'default-grid columns-' . $attributes['portfolio_items_per_row'] : 'masonry-' . $attributes['grid'];
+	$attributes['order_by'] = ( 'alphabetical' === $attributes['order_by'] ) ? 'title' : $attributes['order_by'];
 
 	$portfolio_items = new WP_Query(
 		array(
 			'post_status'          => 'publish',
 			'post_type'            => 'portfolio',
-			'posts_per_page'       => $items,
-			'portfolio_categories' => $category,
-			'orderby'              => $order_by,
-			'order'                => $order,
+			'posts_per_page'       => $attributes['items'],
+			'portfolio_categories' => $attributes['category'],
+			'orderby'              => $attributes['order_by'],
+			'order'                => $attributes['order'],
 		)
 	);
 
 	if ( $portfolio_items->have_posts() ) {
 
-		if ( empty( $category ) && ( 'yes' === $show_filters ) ) {
+		if ( empty( $attributes['category'] ) && ( 'yes' === $attributes['show_filters'] ) ) {
 			$categories_list = array();
 
 			while ( $portfolio_items->have_posts() ) {
