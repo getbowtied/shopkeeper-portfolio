@@ -34,7 +34,7 @@ if ( ! function_exists( 'gbt_18_sk_render_frontend_portfolio' ) ) {
 
 		ob_start();
 
-		$columns_class = ( is_int( strpos( $attributes['className'], 'is-style-default' ) ) ) ? 'default-grid columns-' . $attributes['columns'] : $attributes['className'];
+		$columns_class = ( is_int( strpos( $attributes['className'], 'is-style-default' ) ) ) ? $attributes['className'] . ' columns-' . $attributes['columns'] : $attributes['className'];
 
 		$args = array(
 			'post_status'    => 'publish',

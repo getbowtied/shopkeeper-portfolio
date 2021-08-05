@@ -75,11 +75,11 @@ if ( function_exists( 'register_block_type' ) ) {
 	);
 }
 
-if ( ! function_exists( 'gbt_18_sk_register_rest_portfolio_images' ) ) {
+if ( ! function_exists( 'gbt_18_sk_register_rest_portfolio_data' ) ) {
 	/**
 	 * Portfolio Helpers.
 	 */
-	function gbt_18_sk_register_rest_portfolio_images() {
+	function gbt_18_sk_register_rest_portfolio_data() {
 		register_rest_field(
 			array( 'portfolio' ),
 			'fimg_url',
@@ -89,9 +89,19 @@ if ( ! function_exists( 'gbt_18_sk_register_rest_portfolio_images' ) ) {
 				'schema'          => null,
 			)
 		);
+
+		register_rest_field(
+			array( 'portfolio' ),
+			'color_meta_box',
+			array(
+				'get_callback'    => 'gbt_18_sk_get_rest_portfolio_item_color',
+				'update_callback' => null,
+				'schema'          => null,
+			)
+		);
 	}
 }
-add_action( 'rest_api_init', 'gbt_18_sk_register_rest_portfolio_images' );
+add_action( 'rest_api_init', 'gbt_18_sk_register_rest_portfolio_data' );
 
 if ( ! function_exists( 'gbt_18_sk_get_rest_portfolio_featured_image' ) ) {
 	/**
@@ -105,6 +115,23 @@ if ( ! function_exists( 'gbt_18_sk_get_rest_portfolio_featured_image' ) ) {
 		if ( $object['featured_media'] ) {
 			$img = wp_get_attachment_image_src( $object['featured_media'], 'large' );
 			return $img[0];
+		}
+		return false;
+	}
+}
+
+if ( ! function_exists( 'gbt_18_sk_get_rest_portfolio_item_color' ) ) {
+	/**
+	 * Portfolio Item Color.
+	 *
+	 * @param array  $object The object.
+	 * @param string $field_name Field name.
+	 * @param mixed  $request The request.
+	 */
+	function gbt_18_sk_get_rest_portfolio_item_color( $object, $field_name, $request ) {
+		if ( $object['id'] ) {
+			$color = get_post_meta( $object['id'], 'portfolio_color_meta_box', true ) ? get_post_meta( $object['id'], 'portfolio_color_meta_box', true ) : '';
+			return $color;
 		}
 		return false;
 	}

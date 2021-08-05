@@ -248,13 +248,6 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 		 */
 		public function add_block_editor_assets() {
 			if ( ! class_exists( 'Shopkeeper_Extender' ) ) {
-				wp_enqueue_style(
-					'shopkeeper-portfolio-block-editor',
-					plugins_url( 'assets/css/block-editor.css', __FILE__ ),
-					array( 'wp-edit-blocks' ),
-					SK_PORTFOLIO_VERSION
-				);
-
 				wp_enqueue_script(
 					'shopkeeper-portfolio-block-editor',
 					plugins_url( 'assets/js/block-editor.js', __FILE__ ),
@@ -263,6 +256,13 @@ if ( ! class_exists( 'Shopkeeper_Portfolio' ) ) :
 					true
 				);
 			}
+
+			wp_enqueue_style(
+				'shopkeeper-portfolio-block-editor',
+				plugins_url( 'assets/css/block-editor.css', __FILE__ ),
+				array( 'wp-edit-blocks' ),
+				SK_PORTFOLIO_VERSION
+			);
 		}
 
 		/**
