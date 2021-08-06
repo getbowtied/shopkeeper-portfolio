@@ -8,10 +8,11 @@
 
 global $post;
 
-$portfolio_title_option         = get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) ? get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) : 'on';
-$portfolio_class                = ( 'on' === $portfolio_title_option ) ? 'page-title-shown' : 'page-title-hidden';
-$single_post_header_thumb_class = has_post_thumbnail() ? 'with-thumb alignfull' : '';
 $page_portfolio_layout          = get_post_meta( get_the_ID(), 'portfolio_layout', true );
+$portfolio_title_option         = get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) ? get_post_meta( $post->ID, 'portfolio_title_meta_box_check', true ) : 'on';
+$single_post_header_thumb_class = has_post_thumbnail() ? 'with-thumb alignfull' : '';
+$portfolio_class                = ( 'on' === $portfolio_title_option ) ? 'page-title-shown' : 'page-title-hidden';
+$portfolio_class               .= ( 'full' === $page_portfolio_layout ) ? ' alignfull' : '';
 
 get_header();
 ?>
