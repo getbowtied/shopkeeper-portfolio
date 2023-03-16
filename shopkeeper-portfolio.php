@@ -229,6 +229,15 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
         */
         public static function gbt_register_scripts() {
             add_action( 'wp_enqueue_scripts', function() {
+                
+                wp_enqueue_script(
+                    'gbt-portfolio-isotope',
+                    plugins_url( 'includes/assets/js/vendor/isotope.pkgd.min.js', __FILE__ ),
+                    array('jquery'),
+                    false,
+                    true
+                );
+
                 wp_enqueue_script(
                     'gbt-portfolio-scripts',
                     plugins_url( 'includes/assets/js/portfolio.js', __FILE__ ),
@@ -236,6 +245,7 @@ if ( ! class_exists( 'ShopkeeperPortfolio' ) ) :
                     false,
                     true
                 );
+
             }, 300 );
         }
 
